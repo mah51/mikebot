@@ -6,6 +6,7 @@ const { Collection } = require('discord.js');
 const memberModel = require('./member');
 const guildModel = require('./guild');
 const MusicClient = require('./music');
+const {API} = require('../config.json');
 
 const levels = {
   levels: {
@@ -49,7 +50,7 @@ class MikeBotClient extends CommandoClient {
     });
 
     this.music = new MusicClient(this, {
-      apiKey: 'AIzaSyDcSXTkGIqoY2gx6qP7TD6PzHXACWM2WpY',
+      apiKey: API.youtube,
       defVolume: 50,
       bitRate: 25000,
       maxHistory: 50,
