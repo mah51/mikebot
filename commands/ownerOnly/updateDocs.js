@@ -64,7 +64,7 @@ ${group.description}
 
 **Use:** \`.${command.name}\`<br/>
 **Bot permissions:** ${command.clientPermissions ? command.clientPermissions.map((perm) => perm[0] + perm.slice(1).toLowerCase()).join(', ') : 'None'}<br/>
-**User permissions:** ${command.userPermissions ? command.userPermissions.map((perm) => perm[0] + perm.slice(1).toLowerCase()).join(', ') : 'None'}${command.userRoles ? `(or a role: ${command.userRoles.map((perm) => perm[0].toUpperCase() + perm.slice(1).toLowerCase()).join(', ')})` : 'None'}<br/>
+**User permissions:** ${command.userPermissions ? command.userPermissions.map((perm) => perm[0] + perm.slice(1).toLowerCase()).join(', ') : 'None'}${command.userRoles ? ` (or a role: ${command.userRoles.map((perm) => perm[0].toUpperCase() + perm.slice(1).toLowerCase()).join(', ')})` : ''}<br/>
 **Description:** ${command.details || command.description}<br/>
 `)).join('\n');
           // eslint-disable-next-line no-await-in-loop
