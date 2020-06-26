@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ComponentSettings" COMPONENT_TEMPLATE_KEY="templates/component/{{componentName}}.vue.mustache" SASS_TEMPLATE_KEY="templates/component/_{{componentName}}.scss.mustache" STORYBOOK_TEMPLATE_KEY="templates/component/{{componentName}}.story.js.mustache" />
+  <component name="VuexSettings" ACTION_FILE="templates/vuex/actions.js.mustache" INDEX_FILE_KEY="templates/vuex/index.js.mustache" GETTERS_FILE_KEY="templates/vuex/getters.js.mustache" MUTATIONS_FILE_KEY="templates/vuex/mutations.js.mustache" MUTATION_TYPES_FILE_KEY="templates/vuex/mutation-types.js.mustache" STATE_FILE_KEY="templates/vuex/state.js.mustache" TYPES_FILE_KEY="templates/vuex/types.d.ts.mustache" />
+</project>

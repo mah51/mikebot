@@ -1,0 +1,10 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "no-console": "off",
+    "max-len": "off",
+    "no-unused-vars": "off",
+    "class-methods-use-this": "off",
+    "consistent-return": "off"
+  }
+}
