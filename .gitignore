@@ -1,0 +1,10 @@
+.idea
+node_modules
+.env
+package-lock.json
+logs
+databases
+musicLogs
+mikebot-docs/node_modules
+mikebot-docs/yarn.lock
+config.json
