@@ -23,8 +23,6 @@ module.exports = class QuotePrinter extends Command {
   }
 
   async run(msg, { quote }) {
-    if (!this.checkBotPerms(msg, ['CONNECT', 'SPEAK'])) return;
-    if (!this.checkPerms(msg, ['SPEAK'], [])) return;
     let trueGuild = false;
     if (msg.guild.id === '689991856930553917') trueGuild = true;
     function playAudio(client, file, vol) {

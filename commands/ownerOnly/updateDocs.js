@@ -25,7 +25,7 @@ module.exports = class updateDocs extends Command {
 
   async run(msg, args, fromPattern, something) {
     if (!process.env.IN_PRODUCTION) { return msg.reply('The bot isn\'t in production so that command cant be run.').catch(console.error); }
-    const filePath = path.join('./mikebot-docs/docs/commands/');
+    const filePath = path.join(__dirname, '../../mikebot-docs/docs/commands/');
     const repo = 'mikebot-docs';
     const userName = API.github.user;
     const { password } = API.github;
