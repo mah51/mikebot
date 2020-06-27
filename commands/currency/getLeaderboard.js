@@ -22,10 +22,14 @@ module.exports = class getLeaderboard extends Command {
   }
 
   async run(msg, args, fromPattern, something) {
-    const leaderboardData = await this.client.membersData.find({ guildID: msg.guild.id }).sort({ xp: -1 });
+    const members = await this.client.membersData.find({ guildID: msg.guild.id }).lean();
+    const leaderboardData = members.sort((a, b) => b.xp - a.xp);
     const users = leaderboardData.map((member) => member.id);
     const guildMembers = await msg.guild.members.fetch({ user: users, cache: false }).catch((err) => {});
-    const description = guildMembers.array().map((member, index) => `**⇾ ${index + 1}.** ${member.displayName}, ${leaderboardData.filter((lbd) => lbd.id === member.id)[0].xp} xp`).join('\n');
+    const description = leaderboardData.map((mem, index) => {
+      const member = guildMembers.get(mem.id);
+      return `**⇾ ${index + 1}.** ${member.displayName}, ${mem.xp} xp`;
+    }).join('\n');
     const embed = new MessageEmbed()
       .setFooter(this.client.setting.footer)
       .setColor(this.client.setting.colour)
