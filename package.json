@@ -13,6 +13,7 @@
     "canvas": "^2.6.1",
     "chalk": "^4.0.0",
     "commando-provider-mongo": "^1.1.1",
+    "common-tags": "^1.8.0",
     "dateformat": "^3.0.3",
     "dblapi.js": "^2.4.0",
     "discord-bot-dashboard": "^0.2.0",
