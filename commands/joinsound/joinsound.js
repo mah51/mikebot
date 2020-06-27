@@ -10,7 +10,7 @@ module.exports = class SaveLink extends Command {
       group: 'join-sound',
       guildOnly: true,
       memberName: 'join-link',
-      description: 'Check the current join sound you have saved! Admins: to disable join sounds, use : disable joinsound.',
+      description: 'Check the current join sound you have saved!',
     });
   }
 

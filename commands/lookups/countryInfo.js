@@ -9,7 +9,8 @@ module.exports = class CountryInfo extends Command {
       aliases: ['countryinfo', 'cinfo'],
       group: 'lookups',
       memberName: 'country-info',
-      description: 'returns data about a supplied country',
+      description: 'Returns information on a given country',
+      examples: ['country-info United Kingdom'],
       args: [{
         key: 'query',
         prompt: 'Value that will be matched in the database.',

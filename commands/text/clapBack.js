@@ -11,10 +11,10 @@ module.exports = class clapBack extends Command {
       ],
       group: 'text',
       memberName: 'clap',
-      description: 'Mikebot 👏 is 👏 the 👏 best 👏 discord 👏 bot.',
+      description: 'Adds claps between a users message.',
       details: '',
       examples: [
-
+        'clap Mikebot is the best discord bot.',
       ],
       args: [
         {

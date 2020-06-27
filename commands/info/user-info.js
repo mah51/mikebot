@@ -10,7 +10,7 @@ module.exports = class UserInfoCommand extends Command {
       group: 'info',
       memberName: 'user-info',
       description: 'Gets information about a user.',
-      examples: ['user-info @Mikerophone#0001', 'user-info Mikerophone'],
+      examples: ['user-info @Mikerophone'],
       guildOnly: true,
       args: [
         {

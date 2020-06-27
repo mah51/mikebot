@@ -7,9 +7,9 @@ module.exports = class MusicLeaveCommand extends Command {
       aliases: [],
       group: 'music',
       userPermissions: ['MANAGE_CHANNELS'],
-      userRoles: ['dj'],
+      userRoles: ['DJ'],
       memberName: 'leave',
-      description: 'Leaves the voice channel.',
+      description: 'Forces bot to leave the voice channel it is currently in.',
       clientPermissions: ['EMBED_LINKS'],
     });
   }

@@ -10,14 +10,8 @@ module.exports = class helpAll extends Command {
       ],
       group: 'info',
       memberName: 'help-all',
-      description: 'Get a list of all commands in the bot!',
+      description: 'Get a list of all commands the bot provides!',
       details: '',
-      examples: [
-
-      ],
-      args: [
-
-      ],
       guildOnly: false,
     });
   }

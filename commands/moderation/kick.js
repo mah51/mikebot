@@ -9,9 +9,8 @@ module.exports = class KickCommand extends Command {
       group: 'moderation',
       memberName: 'kick',
       description: 'Kicks a user.',
-      details: 'Command kicks a user and logs the action if #mod-log exists and the bot can send messages in it.',
+      details: 'Kicks a user and logs the action if #mod-log exists and the bot can send messages in it.',
       examples: [
-        'kick <user> <reason>',
         'kick @Mikerophone silly man',
       ],
       userPermissions: ['KICK_MEMBERS'],

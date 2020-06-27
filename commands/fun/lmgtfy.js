@@ -5,14 +5,14 @@ module.exports = class lmgtfy extends Command {
     super(client, {
       name: 'lmgtfy',
       aliases: [
-
+        'google-that',
       ],
       group: 'fun',
       memberName: 'lmgtfy',
       description: 'Creates a let me google that for you link.',
       details: '',
       examples: [
-
+        'lmgtfy Which discord bot is the best?',
       ],
       args: [
         {

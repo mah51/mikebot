@@ -10,7 +10,7 @@ module.exports = class UrbanDictionary extends Command {
       group: 'lookups',
       memberName: 'urban-dictionary',
       description: 'Search for an urban dictionary term',
-      examples: ['ud Mikerophone', 'ud MikeBot'],
+      examples: ['urban-dictionary Mikerophone', 'ud MikeBot'],
       nsfw: true,
       args: [
         {

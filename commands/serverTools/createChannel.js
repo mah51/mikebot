@@ -9,14 +9,13 @@ module.exports = class createChannel extends Command {
       ],
       group: 'server-tools',
       memberName: 'vc-tool',
-      description: 'Command to manipulate voice channels.',
-      details: 'Can be used to create / delete voice channels.',
+      description: 'Command to manipulate voice channels. Can be used to create / delete voice channels.',
       examples: [
         '.vc-tool create Voice1 ',
         '.vc-tool create "Voice Channel"',
       ],
-      userPermissions: ['MANAGE_MESSAGES'],
-      clientPermissions: ['MANAGE_MESSAGES'],
+      userPermissions: ['MANAGE_CHANNELS'],
+      clientPermissions: ['MANAGE_CHANNELS'],
       args: [
         {
           key: 'action',

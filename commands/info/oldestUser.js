@@ -11,10 +11,11 @@ module.exports = class OldestUser extends Command {
       ],
       group: 'info',
       memberName: 'oldest-user',
-      description: 'Finds the oldest user in the server.',
+      description: 'Finds the oldest (or youngest) user in the server.',
       details: '',
       examples: [
-
+        'oldest-user',
+        'oldest-user true',
       ],
       args: [
         {
@@ -25,7 +26,7 @@ module.exports = class OldestUser extends Command {
           default: '',
         },
       ],
-      guildOnly: false,
+      guildOnly: true,
     });
   }
 

@@ -16,7 +16,7 @@ module.exports = class uMumma extends Command {
       description: 'Returns a yo momma insult.',
       details: '',
       examples: [
-
+        'yo-momma @Mikerophone',
       ],
       args: [
         {

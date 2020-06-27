@@ -11,12 +11,6 @@ module.exports = class FucksGiven extends Command {
       memberName: 'fucks-given',
       description: 'The bot tells you how many fucks it gives',
       details: '',
-      examples: [
-
-      ],
-      args: [
-
-      ],
       throttling: {
         usages: 1,
         duration: 60,

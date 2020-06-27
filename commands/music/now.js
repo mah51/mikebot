@@ -7,7 +7,7 @@ module.exports = class MusicNowPlayingCommand extends Command {
       aliases: ['np'],
       group: 'music',
       memberName: 'np',
-      description: 'Shows now playing.',
+      description: 'Shows the song currently playing.',
       clientPermissions: ['EMBED_LINKS'],
     });
   }

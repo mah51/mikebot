@@ -17,7 +17,7 @@ module.exports = class mute extends Command {
       description: 'Mute a member, so they can\'t join voice channels or send messages.',
       details: '',
       examples: [
-
+        'mute @Mikerophone 1d Coughed on someone.',
       ],
       args: [
         {

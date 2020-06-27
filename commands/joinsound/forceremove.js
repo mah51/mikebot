@@ -7,7 +7,7 @@ module.exports = class SaveLink extends Command {
       aliases: ['frmlink', 'frlink'],
       group: 'join-sound',
       memberName: 'forceremovelink',
-      description: 'For admins to remove other user\'s join sounds link, and prevents the bot from joining and playing sound effect on user join.',
+      description: 'Remove another user\'s join link, and prevents the bot from joining and playing sounds when a user joins a voice channel.',
       guildOnly: true,
       examples: [
         'fremove-link @Mikerophone',

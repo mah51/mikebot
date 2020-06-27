@@ -10,10 +10,10 @@ module.exports = class firstMessage extends Command {
       ],
       group: 'info',
       memberName: 'first-message',
-      description: 'Get\'s the first message in a channel.',
+      description: 'Gets the first message sent in a channel.',
       details: '',
       examples: [
-
+        'first-message #general',
       ],
       args: [
         {

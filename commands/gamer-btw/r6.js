@@ -14,10 +14,9 @@ module.exports = class r6StatsCommand extends Command {
       ],
       group: 'gamer-btw',
       memberName: 'r6-stats',
-      description: 'Returns r6 user stats',
+      description: 'Gets rainbow 6 stats for a user.',
       details: '',
       examples: [
-        'r6-stats <username> <platform> [type] [other inputs eg. specific operator]',
         'r6-stats Mikerophone. pc operator twitch',
         'r6-stats Mikerophone. pc operator',
         'r6-stats Mikerophone. pc season void_edge',

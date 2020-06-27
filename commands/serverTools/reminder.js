@@ -32,7 +32,7 @@ module.exports = class Reminder extends Command {
           prompt: 'What time would you like to be reminded?',
           type: 'string',
           error: 'Please provide your time as a string in 24 hour format, relative to GMT, like so 12:00 would be midday.',
-          validate: (query) => query.split(':').length === 2 && typeof parseInt(query.split(':')[0]) === 'number' && typeof parseInt(query.split(':')[1]) === 'number',
+          validate: (query) => query.split(':').length === 2 && typeof parseInt(query.split(':')[0]) === 'number' && typeof parseInt(query.split(':')[1]) === 'number' && query.split(/ +/).length === 1,
         },
         {
           key: 'reminder',

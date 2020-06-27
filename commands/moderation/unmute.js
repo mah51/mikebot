@@ -15,7 +15,7 @@ module.exports = class unMute extends Command {
       userPermissions: ['MANAGE_MESSAGES'],
       clientPermissions: ['MANAGE_MESSAGES'],
       examples: [
-
+        'un-mute @Mikerophone',
       ],
       args: [
         {

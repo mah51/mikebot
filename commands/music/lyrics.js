@@ -17,7 +17,7 @@ module.exports = class lyrics extends Command {
       description: 'Search up lyrics for a song.',
       details: '',
       examples: [
-
+        'lyrics that one night',
       ],
       args: [
         {

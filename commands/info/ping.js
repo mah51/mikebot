@@ -18,11 +18,11 @@ module.exports = class PingCommand extends Command {
   async run(msg) {
     const pingMsg = await msg.reply('Pinging...');
     return pingMsg.edit(oneLine`
-			${msg.channel.type !== 'dm' ? `${msg.author},` : ''}
-			Pong! The message round-trip took ${
+${msg.channel.type !== 'dm' ? `${msg.author},` : ''}
+Pong! The message round-trip took ${
   (pingMsg.editedTimestamp || pingMsg.createdTimestamp) - (msg.editedTimestamp || msg.createdTimestamp)
 }ms.
-			${this.client.ws.ping ? `The heartbeat ping is ${Math.round(this.client.ws.ping)}ms.` : ''}
-		`);
+${this.client.ws.ping ? `The heartbeat ping is ${Math.round(this.client.ws.ping)}ms.` : ''}
+`);
   }
 };

@@ -11,10 +11,10 @@ module.exports = class TimerCommand extends Command {
       ],
       group: 'server-tools',
       memberName: 'timer',
-      description: 'Starts a timer in the channel you send the message, up to 12h. (Note. If bot crashes while this is running there will be no alert)',
+      description: 'Starts a timer in the channel you send the message, up to 12h. (Note. If bot crashes while this is running there will be no , use a reminder for longer periods of time)',
       details: '',
       examples: [
-
+        'timer 10m',
       ],
       args: [
         {

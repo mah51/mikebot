@@ -11,10 +11,10 @@ module.exports = class ClearMemberInfo extends Command {
       userPermissions: ['ADMINISTRATOR'],
       group: 'currency',
       memberName: 'reset-balance',
-      description: '',
-      details: '',
+      description: 'Clear a user\'s balance.',
+      details: 'Sets the user\'s balance to 0.',
       examples: [
-
+        'reset-balance @Mikerophone',
       ],
       args: [
         {

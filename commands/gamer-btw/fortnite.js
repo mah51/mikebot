@@ -18,7 +18,7 @@ module.exports = class FortniteSearch extends Command {
       description: 'Gets fortnite stats for a specific user',
       details: '',
       examples: [
-
+        'fortnite Mikerophone',
       ],
       args: [
         {

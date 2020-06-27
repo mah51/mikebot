@@ -10,6 +10,7 @@ module.exports = class ClearChat extends Command {
       description: 'Clears x number of messages.',
       guildOnly: true,
       userPermissions: ['MANAGE_MESSAGES'],
+      userRoles: ['Mod'],
       clientPermissions: ['MANAGE_MESSAGES'],
       examples: [
         'clear 100',

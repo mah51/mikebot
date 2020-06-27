@@ -12,11 +12,8 @@ module.exports = class getLeaderboard extends Command {
       ],
       group: 'currency',
       memberName: 'currency-leaderboard',
-      description: 'Gets the top ten users of a server.',
+      description: 'Returns top ten users with the most xp in a server.',
       details: '',
-      examples: [
-
-      ],
       args: [
 
       ],

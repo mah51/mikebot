@@ -14,8 +14,9 @@ module.exports = class warnCommand extends Command {
       description: 'Warn a member, if they have been warned three times you will be notified',
       details: '',
       userPermissions: ['MANAGE_MESSAGES'],
+      userRoles: ['Mod'],
       examples: [
-
+        'warn @Mikerophone For spamming this channel',
       ],
       args: [
         {

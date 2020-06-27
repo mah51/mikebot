@@ -9,7 +9,7 @@ module.exports = class SaveLink extends Command {
       aliases: ['fclink', 'forcechangelink'],
       group: 'join-sound',
       memberName: 'forcechangelink',
-      description: 'Overwrites a current user\'s saved link need manage channel permissions to use.',
+      description: 'Overwrites a current user\'s saved link.',
       guildOnly: true,
       examples: [
         'fchange-link @Mikerophone https://www.youtube.com/watch?v=dQw4w9WgXcQ',

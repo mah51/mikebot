@@ -7,9 +7,10 @@ module.exports = class ClearBotCommand extends Command {
       group: 'server-tools',
       memberName: 'clear-bot',
       description: 'Clears messages sent by the bot.',
-      details: 'Searches <1-100> number of messages and deletes those sent by the bot, or if inversed clear all messages apart from the bots!',
-      examples: ['clear-bot 5'],
+      details: 'Searches messages and deletes those sent by the bot, or if inversed clear all messages apart from the bot\'s!',
+      examples: ['clear-bot 5 true'],
       userPermissions: ['MANAGE_MESSAGES'],
+      userRoles: ['Mod'],
       clientPermissions: ['MANAGE_MESSAGES'],
       args: [{
         key: 'num',

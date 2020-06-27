@@ -13,7 +13,7 @@ module.exports = class StealCommand extends Command {
       description: 'Steal from a member but hope they aren\'t on the ball.',
       details: '',
       examples: [
-
+        'steal @Mikerophone high',
       ],
       args: [
         {

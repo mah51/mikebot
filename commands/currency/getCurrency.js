@@ -16,7 +16,8 @@ module.exports = class getCurrency extends Command {
       description: 'Get a users current balance.',
       details: '',
       examples: [
-        '.bal',
+        'get-balance',
+        'get-balance @Mikerophone',
       ],
       args: [
         {

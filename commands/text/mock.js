@@ -10,8 +10,7 @@ module.exports = class mockCommand extends Command {
       group: 'text',
       memberName: 'mock',
       description: 'uSe ThIS cOmmanD To mOCK QuOteS',
-      examples: ["randomCase spongebob isn't cool"],
-
+      examples: ["mock spongebob isn't cool"],
       args: [
         {
           key: 'text',

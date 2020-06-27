@@ -10,7 +10,10 @@ module.exports = class MusicRemoveCommand extends Command {
       description: 'Remove a song from the queue.',
       clientPermissions: ['EMBED_LINKS'],
       userPermissions: ['MANAGE_CHANNELS'],
-      userRoles: ['dj'],
+      userRoles: ['DJ'],
+      examples: [
+        'remove 1',
+      ],
       args: [
         {
           key: 'index',

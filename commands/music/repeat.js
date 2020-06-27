@@ -7,10 +7,15 @@ module.exports = class MusicRepeatCommand extends Command {
       aliases: [],
       group: 'music',
       memberName: 'repeat',
-      description: 'Repeat a song, queue or disable.',
+      description: 'Repeat a song once, all or disable.',
       clientPermissions: ['EMBED_LINKS'],
       userPermissions: ['MANAGE_CHANNELS'],
-      userRoles: ['dj'],
+      userRoles: ['DJ'],
+      examples: [
+        'repeat one',
+        'repeat all',
+        'repeat off',
+      ],
       args: [
         {
           key: 'mode',

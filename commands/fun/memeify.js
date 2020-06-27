@@ -14,7 +14,10 @@ module.exports = class Memeify extends Command {
       userPermissions: ['ATTACH_FILES'],
       group: 'fun',
       memberName: 'memeify',
-      description: 'Creates a meme from set templates',
+      description: 'Creates a meme from a choice of templates, (Work in progress)',
+      examples: [
+        'meme-creator winnie-the-pooh',
+      ],
       args: [
         {
           key: 'meme',
@@ -29,7 +32,6 @@ module.exports = class Memeify extends Command {
   }
 
   async run(msg, { meme }, fromPattern, result) {
-    if (!this.checkPerms(msg, ['ATTACH_FILES'], [])) { return; }
     if (!this.checkChannelPerms(msg, msg.channel, msg.guild.me, ['SEND_MESSAGES', 'ATTACH_FILES'])) { return; }
     switch (meme) {
       case 'pooh':

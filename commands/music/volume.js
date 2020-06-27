@@ -10,7 +10,10 @@ module.exports = class MusicVolumeCommand extends Command {
       description: 'Changes the volume of future music sessions.',
       clientPermissions: ['EMBED_LINKS'],
       userPermissions: ['MANAGE_CHANNELS'],
-      userRoles: ['dj'],
+      userRoles: ['DJ'],
+      examples: [
+        'volume 100',
+      ],
       args: [
         {
           key: 'volume',

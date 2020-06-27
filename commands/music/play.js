@@ -7,10 +7,13 @@ module.exports = class MusicPlayCommand extends Command {
       aliases: [],
       group: 'music',
       memberName: 'play',
-      description: 'Play a song or resume playback.',
+      description: 'Play a song.',
       clientPermissions: ['EMBED_LINKS'],
       userPermissions: ['MANAGE_CHANNELS'],
-      userRoles: ['dj'],
+      userRoles: ['DJ'],
+      examples: [
+        'play https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      ],
       args: [
         {
           key: 'query',

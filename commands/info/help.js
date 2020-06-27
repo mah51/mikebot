@@ -40,7 +40,7 @@ module.exports = class HelpCommand extends Command {
           { name: 'Detailed description: ', value: command.details ? command.details : 'No details provided' },
           { name: 'Aliases: ', value: `\`${command.aliases.join('`, `') || 'None'}\`` },
           { name: 'Usage: ', value: `${msg.anyUsage(`${command.name} ${command.format || ''}`)}` },
-          { name: 'Examples: ', value: `\`${command.examples && command.examples.length > 0 ? command.examples.join('`\n`') : 'None'}\`` },
+          { name: 'Examples: ', value: `\`${command.examples && command.examples.length > 0 ? command.examples.map((example) => msg.guild.commandPrefix + example).join('`\n`') : 'None'}\`` },
           { name: 'Module: ', value: `${command.group.name}` },
           { name: 'NSFW: ', value: `${command.nsfw ? 'Yes' : 'No'}` },
         ]);

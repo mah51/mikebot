@@ -10,7 +10,7 @@ module.exports = class MusicStopCommand extends Command {
       description: 'Skips current song.',
       clientPermissions: ['EMBED_LINKS'],
       userPermissions: ['MANAGE_CHANNELS'],
-      userRoles: ['dj'],
+      userRoles: ['DJ'],
     });
   }
 

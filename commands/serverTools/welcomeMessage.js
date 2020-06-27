@@ -10,10 +10,12 @@ module.exports = class WelcomeMessage extends Command {
       ],
       group: 'server-tools',
       memberName: 'welcome-message',
-      description: 'Set up a welcome message in your server to welcome new members :).',
+      description: 'Set up a welcome message in your server to welcome new members 😋.',
       details: '',
+      userPermissions: ['ADMINISTRATOR'],
+      userRoles: ['Admin'],
       examples: [
-
+        'welcome-message enable #general {{user}}, welcome to the server!',
       ],
       args: [
         {

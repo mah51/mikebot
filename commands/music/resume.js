@@ -10,7 +10,7 @@ module.exports = class MusicPauseCommand extends Command {
       description: 'Resume the playback.',
       clientPermissions: ['EMBED_LINKS'],
       userPermissions: ['MANAGE_CHANNELS'],
-      userRoles: ['dj'],
+      userRoles: ['DJ'],
     });
   }
 

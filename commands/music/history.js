@@ -7,9 +7,9 @@ module.exports = class MusicHistoryCommand extends Command {
       aliases: [],
       group: 'music',
       userPermissions: ['MANAGE_CHANNELS'],
-      userRoles: ['dj'],
+      userRoles: ['DJ'],
       memberName: 'history',
-      description: 'Shows playback history.',
+      description: 'Shows music queue history.',
       clientPermissions: ['EMBED_LINKS'],
     });
   }

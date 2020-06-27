@@ -7,9 +7,9 @@ module.exports = class MusicClearCommand extends Command {
       aliases: ['c-q'],
       group: 'music',
       userPermissions: ['MANAGE_CHANNELS'],
-      userRoles: ['dj'],
+      userRoles: ['DJ'],
       memberName: 'clear-queue',
-      description: 'Clears Queue',
+      description: 'Clears current music queue.',
       clientPermissions: ['EMBED_LINKS'],
     });
   }

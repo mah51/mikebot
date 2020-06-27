@@ -10,7 +10,7 @@ module.exports = class MusicShuffleCommand extends Command {
       description: 'Shuffles current queue.',
       clientPermissions: ['EMBED_LINKS'],
       userPermissions: ['MANAGE_CHANNELS'],
-      userRoles: ['dj'],
+      userRoles: ['DJ'],
     });
   }
 

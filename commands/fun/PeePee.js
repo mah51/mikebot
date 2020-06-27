@@ -8,7 +8,10 @@ module.exports = class PeePee extends Command {
       aliases: ['peepee', 'penislength'],
       group: 'fun',
       memberName: 'pp',
-      description: 'Tells the user the length of their pp',
+      description: 'Tells the user the length of their pp.',
+      examples: [
+        'pp @Mikerophone',
+      ],
       args: [
         {
           key: 'member',

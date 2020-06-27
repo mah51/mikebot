@@ -60,9 +60,10 @@ ${group.description}
         const commandios = group.commands.array().filter((command) => !command.ownerOnly || !command.hidden);
         if (commandios.length > 0) {
           data += commandios.map((command) => (`
-### ${command.nameLong}
+### ${command.nameLong || command.name}
 
 **Use:** \`.${command.name}\`<br/>
+**Usage:** \`.${command.examples[0]}\`<br/>
 **Bot permissions:** ${command.clientPermissions ? command.clientPermissions.map((perm) => perm[0] + perm.slice(1).toLowerCase()).join(', ') : 'None'}<br/>
 **User permissions:** ${command.userPermissions ? command.userPermissions.map((perm) => perm[0] + perm.slice(1).toLowerCase()).join(', ') : 'None'}${command.userRoles ? ` (or a role: ${command.userRoles.map((perm) => perm[0].toUpperCase() + perm.slice(1).toLowerCase()).join(', ')})` : ''}<br/>
 **Description:** ${command.details || command.description}<br/>

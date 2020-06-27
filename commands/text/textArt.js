@@ -11,10 +11,10 @@ module.exports = class textArt extends Command {
       ],
       group: 'text',
       memberName: 'text-art',
-      description: 'Turns text into word art.',
-      details: '(Doesn\'t work on mobile)',
+      description: 'Turns text into word art. (Doesn\'t work on mobile)',
+      details: '',
       examples: [
-
+        'word-art mikebot',
       ],
       args: [
         {

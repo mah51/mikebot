@@ -36,7 +36,7 @@ class MikeBotCommand extends Command {
     super(client, info);
     this.deleteStatus = typeof info.deleteStatus === 'boolean' ? info.deleteStatus : true;
     this.userRoles = info.userRoles || null;
-    this.nameLong = info.nameLong || info.name;
+    this.nameLong = info.nameLong || null;
     this.uses = 0;
     this.errors = [];
     this.errorCount = 0;
@@ -58,7 +58,7 @@ class MikeBotCommand extends Command {
       return 'owner-only';
     }
 
-    if (message.channel.type === 'text' && this.userPermissions && !message.member.roles.cache.find((role) => this.userRoles.includes(role.name.toLowerCase()))) {
+    if (message.channel.type === 'text' && this.userPermissions && !message.member.roles.cache.find((role) => this.userRoles.map((clientRole) => clientRole.toLowerCase()).includes(role.name.toLowerCase()))) {
       return 'Missing some perms';
     }
 

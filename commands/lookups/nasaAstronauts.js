@@ -9,7 +9,7 @@ module.exports = class nasaAstro extends Command {
       aliases: ['astronaut', 'pis'],
       group: 'lookups',
       memberName: 'astronauts',
-      description: 'Returns with astronauts currently on the space station.',
+      description: 'Returns with astronauts currently in space and the position of the iss.',
     });
   }
 

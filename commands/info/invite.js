@@ -14,11 +14,11 @@ module.exports = class SaveLink extends Command {
 
   async run(msg, args, fromPattern, something) {
     const embed = new MessageEmbed()
-      .setFooter(this.client.setting.footer)
+      .setFooter(`❤ ${msg.member.displayName}`, msg.author.displayAvatarURL({ size: 128 }))
       .setColor(this.client.setting.colour)
-      .setTitle('Click here to add this bot')
+      .setTitle(`Add ${this.client.user.username} to your server`)
       .setURL('https://discord.com/oauth2/authorize?client_id=698459684205494353&permissions=1576528982&scope=bot')
-      .addField('Support server', 'or [click here](https://discord.gg/UmXUUaA) to go to the support server')
+      .addField('`Useful links 🔗`', '[Website](https://mikebot.xyz) - [Docs](https://docs.mikebot.xyz) - [Support server](https://discord.gg/UmXUUaA)')
       .setThumbnail(msg.client.user.avatarURL({ size: 128 }));
     return msg.reply(embed).catch(console.error);
   }

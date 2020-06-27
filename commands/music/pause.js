@@ -7,10 +7,10 @@ module.exports = class MusicPauseCommand extends Command {
       aliases: [],
       group: 'music',
       memberName: 'pause',
-      description: 'Pause the song.',
+      description: 'Pause the current song.',
       clientPermissions: ['EMBED_LINKS'],
       userPermissions: ['MANAGE_CHANNELS'],
-      userRoles: ['dj'],
+      userRoles: ['DJ'],
     });
   }
 

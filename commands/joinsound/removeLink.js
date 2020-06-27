@@ -8,7 +8,7 @@ module.exports = class SaveLink extends Command {
       group: 'join-sound',
       memberName: 'removelink',
       guildOnly: true,
-      description: 'Removes the join sounds link, and prevents the bot from joining and playing sound effect on user join.',
+      description: 'Removes the join sounds link, so bot will not play a sound when you join.',
     });
   }
 

@@ -7,7 +7,7 @@ module.exports = class removeAll extends Command {
       aliases: ['rall', 'ra', 'rmall'],
       group: 'join-sound',
       memberName: 'removeall',
-      description: 'Removes all user\'s links! Administrators only, use carefully as deletion is irreversible.',
+      description: 'Removes all user\'s links! Use carefully as deletion is irreversible.',
       guildOnly: true,
       userPermissions: ['ADMINISTRATOR'],
       userRoles: ['admin'],

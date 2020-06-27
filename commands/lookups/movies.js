@@ -9,10 +9,12 @@ module.exports = class MovieLookup extends Command {
       aliases: ['movie-lookup', 'ms', 'moviesearch', 'movies', 'movie'],
       group: 'lookups',
       memberName: 'movie-search',
-      description: 'Searches a movie database for string that user provides',
+      description: 'Searches for a movie.',
+      nsfw: true,
+      examples: ['movie-search Inception'],
       args: [{
         key: 'query',
-        prompt: 'Value that will be matched in the database.',
+        prompt: 'What movie would you like to search for?',
         type: 'string',
       }],
 

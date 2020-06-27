@@ -12,14 +12,8 @@ module.exports = class beeMovie extends Command {
       ],
       group: 'fun',
       memberName: 'bee-movie',
-      description: 'Returns a random section from the bee movie script',
+      description: 'Returns a random line from the bee movie script',
       details: '',
-      examples: [
-
-      ],
-      args: [
-
-      ],
       guildOnly: false,
     });
   }

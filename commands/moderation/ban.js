@@ -9,7 +9,7 @@ module.exports = class BanCommand extends Command {
       group: 'moderation',
       memberName: 'ban',
       description: 'Bans a user.',
-      details: 'Command Bans a user and logs the action if #mod-log exists and the bot can send messages in it.',
+      details: 'Bans a user and will log the action if #mod-log exists and the bot can send messages in it.',
       examples: [
         'ban @Mikerophone silly man',
       ],

@@ -11,7 +11,7 @@ module.exports = class extends Command {
       ],
       group: 'info',
       memberName: 'server-info',
-      description: 'Gets information on the server',
+      description: 'Gets server information.',
       details: '',
       examples: [
 
