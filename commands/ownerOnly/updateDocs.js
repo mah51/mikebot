@@ -63,7 +63,7 @@ ${group.description}
 ### ${command.nameLong || command.name}
 
 **Use:** \`.${command.name}\`<br/>
-**Usage:** \`.${command.examples[0]}\`<br/>
+${command.examples ? `**Usage:** \`.${command.examples[0]}\`<br/>` : ''}
 **Bot permissions:** ${command.clientPermissions ? command.clientPermissions.map((perm) => perm[0] + perm.slice(1).toLowerCase()).join(', ') : 'None'}<br/>
 **User permissions:** ${command.userPermissions ? command.userPermissions.map((perm) => perm[0] + perm.slice(1).toLowerCase()).join(', ') : 'None'}${command.userRoles ? ` (or a role: ${command.userRoles.map((perm) => perm[0].toUpperCase() + perm.slice(1).toLowerCase()).join(', ')})` : ''}<br/>
 **Description:** ${command.details || command.description}<br/>
