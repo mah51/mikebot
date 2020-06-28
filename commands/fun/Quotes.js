@@ -30,7 +30,7 @@ module.exports = class QuotePrinter extends Command {
         msg.channel.send('For a cheeky voice snippet join a voice channel');
         return;
       }
-      const queue = this.client.music.guilds.get(msg.guild.id);
+      const queue = client.music.guilds.get(msg.guild.id);
       if (queue && queue.audioDispatcher) {
         return msg.reply('Bot is playing music mate get a life.').catch(console.error);
       }
