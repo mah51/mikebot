@@ -51,7 +51,7 @@ class MikeBotCommand extends Command {
   }
 
   hasPermission(message, ownerOverride = true) {
-    if (!this.ownerOnly && !this.userPermissions) return true;
+    if (!this.ownerOnly && !this.userPermissions && !this.userRoles) return true;
     if (ownerOverride && this.client.isOwner(message.author)) return true;
 
     if (this.ownerOnly && (ownerOverride || !this.client.isOwner(message.author))) {
@@ -59,7 +59,8 @@ class MikeBotCommand extends Command {
     }
 
     if (message.channel.type === 'text' && (this.userPermissions || this.userRoles)) {
-      if (message.member.roles.cache.find((role) => this.userRoles.map((clientRole) => clientRole.toLowerCase()).includes(role.name.toLowerCase())).length > 0) {
+      const userRoles = this.userRoles.map((clientRole) => clientRole.toLowerCase());
+      if (message.member.roles.cache.find((role) => userRoles.includes(role.name.toLowerCase()))) {
         return true;
       }
       return 'Missing some perms';
@@ -89,7 +90,7 @@ class MikeBotCommand extends Command {
         }
         embed.setDescription(`\`❌\` ${message.member} does not have permissions to use the **${this.name}** command`)
           .addField('Permissions needed', `\`${this.userPermissions ? `${this.userPermissions.map((perm) => permissions[perm]).join('`, `')}` : 'No permissions'}\``, true)
-          .addField('Roles needed', `\`${this.userRoles ? `${this.userRoles.map((role) => role[0].toUpperCase() + role.slice(1).toLowerCase()).join('`, `')}` : 'No roles'}\``, true);
+          .addField('Roles needed', `\`${this.userRoles ? `${this.userRoles.join('`, `')}` : 'No roles'}\``, true);
         return message.say({ embed }).catch(console.error);
       }
       case 'clientPermissions': {

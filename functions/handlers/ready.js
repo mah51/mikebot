@@ -34,15 +34,11 @@ module.exports = class {
     this.client.setting.start_time = Date.now();
 
     checkUnmutes(this.client);
-
-
     /*    this.client.guilds.cache.sort((a, b) => a.memberCount + b.memberCount).forEach((guild) => {
       this.client.logger.silly(`${chalk.cyan.bold(guild.memberCount)} members: ${chalk.magenta.bold(guild.name)} - ${chalk.blueBright.bold(guild.id)}`);
     }); */
 
     console.log(chalk.cyanBright(await fs.readFileSync('./boot.txt', 'utf-8')));
-
-
     this.client.logger.info(`Logged in as ${chalk.magenta.bold(`${this.client.user.username}#`)}${chalk.magenta.bold(this.client.user.discriminator)}\nWatching over ${chalk.blueBright.bold(this.client.guilds.cache.size)} guilds.`);
     // Setting bot presence
     this.client.user.setPresence({
