@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
+const axios = require('axios');
 const Command = require('../../structures/commands');
-const { http } = require('../../functions/API');
 
 module.exports = class cursedImage extends Command {
   constructor(client) {
@@ -20,14 +20,15 @@ module.exports = class cursedImage extends Command {
   }
 
   async run(msg, args, fromPattern, result) {
-    const content = await http('https://www.reddit.com/r/cursedimages/random.json');
-    const { permalink } = content[0].data.children[0].data;
+    const content = await axios.get('https://reddit.com/r/cursedimages/random.json');
+    const data = content.data[0] ? content.data[0].data.children[0].data : content.data.data.children[0].data;
+    const { permalink } = data;
     const memeUrl = `https://reddit.com${permalink}`;
-    const { title } = content[0].data.children[0].data;
-    const memeImage = content[0].data.children[0].data.url;
-    const { author } = content[0].data.children[0].data;
-    const memeUpvotes = content[0].data.children[0].data.ups;
-    const memeNumComments = content[0].data.children[0].data.num_comments;
+    const { title } = data;
+    const memeImage = data.url;
+    const { author } = data;
+    const memeUpvotes = data.ups;
+    const memeNumComments = data.num_comments;
     const embed = new MessageEmbed()
       .addField(`Posted by: ${author}`, `[View thread](${memeUrl})`)
       .setImage(memeImage)
