@@ -58,7 +58,10 @@ class MikeBotCommand extends Command {
       return 'owner-only';
     }
 
-    if (message.channel.type === 'text' && this.userPermissions && !message.member.roles.cache.find((role) => this.userRoles.map((clientRole) => clientRole.toLowerCase()).includes(role.name.toLowerCase()))) {
+    if (message.channel.type === 'text' && (this.userPermissions || this.userRoles)) {
+      if (message.member.roles.cache.find((role) => this.userRoles.map((clientRole) => clientRole.toLowerCase()).includes(role.name.toLowerCase())).length > 0) {
+        return true;
+      }
       return 'Missing some perms';
     }
 

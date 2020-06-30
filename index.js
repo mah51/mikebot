@@ -1,4 +1,3 @@
-
 const path = require('path');
 const fs = require('fs');
 const { MongoClient } = require('mongodb');
@@ -23,11 +22,11 @@ const client = new CommandoClient({
 });
 
 if (process.env.DBL_TOKEN) {
-  this.client.dbl = new DBL(process.env.DBL_TOKEN, client);
-  this.client.dbl.on('posted', () => {
+  client.dbl = new DBL(process.env.DBL_TOKEN, client);
+  client.dbl.on('posted', () => {
     client.logger.info('Server count posted!');
   });
-  this.client.dbl.on('error', (e) => {
+  client.dbl.on('error', (e) => {
     client.logger.error(`DBL ERROR ${e}`);
   });
 }
@@ -39,7 +38,6 @@ client
   .setProvider(
     MongoClient.connect(process.env.DB_CONNECTION, { useUnifiedTopology: true }).then((mongoClient) => new MongoDBProvider(mongoClient, 'Mike-Bot-Provider-Settings')),
   ).catch(console.error);
-
 
 mongoose.connect(process.env.MONGOOSE_TOKEN, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
   client.logger.info(chalk.bold('Connected to the Mongoose database.'));
