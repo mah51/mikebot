@@ -6,7 +6,7 @@ const { Collection } = require('discord.js');
 const memberModel = require('./member');
 const guildModel = require('./guild');
 const MusicClient = require('./music');
-const {API} = require('../config.json');
+const { API } = require('../config.json');
 
 const levels = {
   levels: {

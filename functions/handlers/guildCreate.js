@@ -21,10 +21,7 @@ module.exports = class {
       .setDescription('The prefix for all my commands is **.**, this can be changed with .prefix');
     // eslint-disable-next-line no-restricted-syntax
     for (const group of guild.client.registry.groups.values()) {
-      const commands = group.commands.filter((cmd) => {
-        if (cmd.ownerOnly || cmd.hidden) return false;
-        return true;
-      });
+      const commands = group.commands.filter((cmd) => !(cmd.ownerOnly || cmd.hidden));
       if (commands.size) {
         embed.addField(
           `⇾ ${group.name}`,
@@ -53,23 +50,23 @@ module.exports = class {
           {
             name: 'Coming Soon!',
             value:
-          'Soon to come are an official website, more meme templates, and any suggestions you have!',
+          'Soon to come are more currency commands, more meme templates, and any suggestions you have!',
           },
           {
             name: 'Help and support',
             value:
-          "Have a bug to report? Join [MikBot's Support Server](https://discord.gg/UmXUUaA), to get a backdoor viewing into MikeBot's development \n Or you visit the [Website](https://mikebot.xyz)",
+          "Have a bug to report? Join [MikBot's Support Server](https://discord.gg/UmXUUaA), to get a backdoor viewing into MikeBot's development \n\nOr you can visit the [Website](https://mikebot.xyz)",
           },
         ],
         footer: {
-          text: 'Made by Mikerophone :).',
+          text: 'Made by Mikerophone 😃.',
         },
         setTimestamp() {},
       },
     }).catch(console.error);
 
-    defaultChannel.send(`Hello, my name is MikeBot! Here is a list of all my commands, if you need more information about each command do ${guild.client.commandPrefix}help <command name> or visit the [website](https://mikebot.xyz)😉
+    defaultChannel.send(`Hello, my name is MikeBot! Here is a list of all my commands, if you need more information about each command do ${guild.commandPrefix}help <command name> or visit https://mikebot.xyz 😉
 If you find any bugs or think of a sicc idea use .idea or .bug to send them to the support server! 🎉
-If you like the bot, feel free to vote here: https://top.gg/bot/698459684205494353, it would be greatly appreciated! `, { embed }).catch(console.error);
+If you like the bot, feel free to vote here: https://top.gg/bot/698459684205494353, it would be greatly appreciated! 😍`, { embed }).catch(console.error);
   }
 };
