@@ -59,7 +59,7 @@ class MikeBotCommand extends Command {
     }
 
     if (message.channel.type === 'text' && (this.userPermissions || this.userRoles)) {
-      const userRoles = this.userRoles.map((clientRole) => clientRole.toLowerCase());
+      const userRoles = this.userRoles ? this.userRoles.map((clientRole) => clientRole.toLowerCase()) : [];
       if (message.member.roles.cache.find((role) => userRoles.includes(role.name.toLowerCase()))) {
         return true;
       }
