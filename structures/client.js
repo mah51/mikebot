@@ -38,11 +38,14 @@ class MikeBotClient extends CommandoClient {
 
     this.steals = new Collection();
     this.timers = new Collection();
-    this.setting = new Collection();
-    this.setting.colour = '#59FF92';
-    this.setting.successcolour = '#4BF08C';
-    this.setting.errorcolour = '#FF5251';
-    this.setting.footer = 'Powered by MikeBot 😎';
+    this.games = new Collection();
+
+    this.setting = {
+      colour: '#59FF92',
+      successcolour: '#4BF08C',
+      errorcolour: '#FF5251',
+      footer: 'Powered by MikeBot 😎',
+    };
 
     this.spotify = new Spotify({
       id: 'f0f843b34e31434da9e87b9d16ba365d',
@@ -86,6 +89,10 @@ class MikeBotClient extends CommandoClient {
         new winston.transports.Console(),
       ],
     });
+  }
+
+  inPhoneCall(channel) {
+    return this.phone.some((call) => call.origin.id === channel.id || call.recipient.id === channel.id);
   }
 
   async findGuild({ id: guildID }, isLean = false) {

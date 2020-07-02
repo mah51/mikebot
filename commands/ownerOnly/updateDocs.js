@@ -26,10 +26,6 @@ module.exports = class updateDocs extends Command {
   async run(msg, args, fromPattern, something) {
     if (process.env.IN_PRODUCTION !== 'production') { return msg.reply('The bot isn\'t in production so that command cant be run.').catch(console.error); }
     const filePath = path.join(__dirname, '../../../mikebot-docs/docs/commands/');
-    const repo = 'mikebot-docs';
-    const userName = API.github.user;
-    const { password } = API.github;
-    const gitHubUrl = `https://${userName}:${password}@github.com/${userName}/${repo}`;
     fs.readdir(filePath, (err, files) => {
       if (err) throw err;
 
@@ -57,7 +53,7 @@ ${group.description}
 ---
 
 ---`;
-        const commandios = group.commands.array().filter((command) => !command.ownerOnly || !command.hidden);
+        const commandios = group.commands.array().filter((command) => !(command.ownerOnly || command.hidden));
         if (commandios.length > 0) {
           data += commandios.map((command) => (`
 ### ${command.nameLong || command.name}

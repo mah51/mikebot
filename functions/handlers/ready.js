@@ -10,6 +10,7 @@ const descriptions = {
   fun: 'Go on, have a bit of fun. (I recommend .bee)',
   'gamer-btw': 'Are you gamer enough?',
   music: 'Get groovy in a voice channel.',
+  game: 'Play some fun games with your friends or alone!',
   reddit: 'Search some interesting subreddits',
   lookups: 'Get some cool info from the interwebs',
   moderation: 'Moderation station, sort your server out.',

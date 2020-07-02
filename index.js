@@ -6,6 +6,7 @@ const DBL = require('dblapi.js');
 const mongoose = require('mongoose');
 const util = require('util');
 const chalk = require('chalk');
+const { Intents } = require('discord.js');
 
 const readdir = util.promisify(fs.readdir);
 const CommandoClient = require('./structures/client');
@@ -19,6 +20,7 @@ const client = new CommandoClient({
   invite: 'https://discord.gg/UmXUUaA',
   disableEveryone: true,
   unknownCommandResponse: false,
+  ws: { intents: Intents.ALL },
 });
 
 if (process.env.DBL_TOKEN) {
@@ -92,6 +94,7 @@ client.registry.registerGroups([
   ['patterns', 'Pattern 🤨'],
   ['join-sound', 'Join Sounds 🔊'],
   ['fun', 'Fun 😆'],
+  ['games', 'Games ♟'],
   ['gamer-btw', 'Gamer 🎮'],
   ['music', 'Music 🎵'],
   ['reddit', 'Reddit 💀'],
