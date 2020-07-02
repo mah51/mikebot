@@ -12,7 +12,8 @@ module.exports = class r6StatsCommand extends Command {
       aliases: [
         'r6',
       ],
-      group: 'gamer-btw',
+      fullName: 'Six Siege Stats',
+      group: 'stats',
       memberName: 'r6-stats',
       description: 'Gets rainbow 6 stats for a user.',
       details: '',

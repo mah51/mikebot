@@ -1,5 +1,15 @@
 const { Command } = require('discord.js-commando');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, escapeMarkdown } = require('discord.js');
+
+function makeid(length) {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 
 const permissions = {
   ADMINISTRATOR: 'Administrator',
@@ -36,7 +46,7 @@ class MikeBotCommand extends Command {
     super(client, info);
     this.deleteStatus = typeof info.deleteStatus === 'boolean' ? info.deleteStatus : true;
     this.userRoles = info.userRoles || null;
-    this.nameLong = info.nameLong || null;
+    this.fullName = info.fullName || null;
     this.uses = 0;
     this.errors = [];
     this.errorCount = 0;
@@ -118,8 +128,8 @@ class MikeBotCommand extends Command {
   makeError(msg, error) {
     const embed = new MessageEmbed()
       .setColor(this.client.setting.errorcolour)
-      .setDescription(error);
-    return msg.reply(embed).catch(console.error);
+      .setDescription(`${msg.author}, ${error}`);
+    return msg.say(embed).catch(console.error);
   }
 
   checkChannelPerms(msg, channel, member, permNames) {
@@ -141,7 +151,40 @@ class MikeBotCommand extends Command {
   onError(err, msg, args, fromPattern, result) {
     this.errorCount += 1;
     this.errors.push({ author: msg.author.username, content: msg.content, error: err });
-    return super.onError(err, msg, args, fromPattern, result);
+    const { owners } = this.client;
+    const ownerList = owners ? owners.map((usr, i) => {
+      const or = i === owners.length - 1 && owners.length > 1 ? 'or ' : '';
+      return `${or}${escapeMarkdown(usr.username)}#${usr.discriminator}`;
+    }).join(owners.length > 2 ? ', ' : ' ') : '';
+    const code = makeid(7);
+    const { invite } = this.client.options;
+    const errorData = new this.client.errorsData({
+      code,
+      guildID: msg.guild ? msg.guild.id : `${msg.channel.id} dm`,
+      userID: msg.author.id,
+      commandName: msg.command.fullName || msg.command.name,
+      error:
+        {
+          cmdName: msg.command.name,
+          errName: err.name,
+          errInfo: err.message,
+          timestamp: msg.createdTimestamp,
+        },
+    });
+    const embed = new MessageEmbed();
+    return errorData.save()
+      .then(() => {
+        embed
+          .setFooter('Sorry about that!', msg.client.user.displayAvatarURL())
+          .setColor(this.client.setting.errorcolour)
+          .setAuthor(`${msg.member.displayName} an error occurred!`, msg.author.displayAvatarURL())
+          .setTimestamp()
+          .setDescription(`\u200b\n\`❌\` **Uh oh!** an error occurred using the \`${msg.command.fullName || msg.command.name}\` command 😭\n**Please report this problem** (otherwise the owner won't be aware of it!)\n\u200b`)
+          .addField('Reporting with `.bug`', `Use \`${msg.guild.commandPrefix}bug\` to report this bug\nPlease submit this code when asked for it: \`${code}\`\n\u200b`, true)
+          .addField('Reporting in the support server', `You can join the [support server](${invite}) and message \`${ownerList}\``, true);
+        return msg.say(embed).catch(console.error);
+      })
+      .catch(console.error);
   }
 }
 

@@ -11,6 +11,7 @@ module.exports = class TicTacToeCommand extends Command {
       ],
       group: 'games',
       memberName: 'tic-tac-toe',
+      fullName: 'Tic Tac Toe',
       description: 'Initiate a game of tic tac toe with a user.',
       guildOnly: true,
       args: [

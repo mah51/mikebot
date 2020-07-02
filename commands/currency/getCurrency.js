@@ -37,7 +37,7 @@ module.exports = class getCurrency extends Command {
     if (member) { memberReq = member; }
     if (memberReq.user.bot) { return msg.reply('Bot users do not have any balance.'); }
     const memberInfo = await this.client.membersData.findOne({ id: memberReq.id, guildID: memberReq.guild.id });
-    if (!memberInfo || memberInfo.balance === 0) { return this.makeError(msg, `${memberReq.displayName} does not have any currency`); }
+    if (!memberInfo || memberInfo.xp === 0) { return this.makeError(msg, `${memberReq.displayName} doesn't have any saved data on this server...`); }
     const embed = new MessageEmbed()
       .setFooter(this.client.setting.footer)
       .setColor(this.client.setting.colour)

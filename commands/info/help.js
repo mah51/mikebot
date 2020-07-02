@@ -1,7 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const Command = require('../../structures/commands');
 
-
 module.exports = class HelpCommand extends Command {
   constructor(client) {
     super(client, {
@@ -77,12 +76,12 @@ module.exports = class HelpCommand extends Command {
         return !(cmd.ownerOnly || cmd.hidden);
       });
       const embed = new MessageEmbed()
-        .setFooter(`There are ${commandios.size} commands in this ${command.name}!`)
+        .setFooter(`There are ${commandios.size} commands in the ${command.name} module`)
         .setColor(this.client.setting.colour)
         .setTimestamp()
         .setTitle(`Commands in \`${command.name}\` module`)
         .setDescription('To get more information on a command do `.help [cmd name]`');
-      commandios.forEach((cmd) => embed.addField(msg.guild.commandPrefix + cmd.name, `**Aliases:** ${cmd.aliases && cmd.aliases.length > 0 ? `\`${msg.guild.commandPrefix}${cmd.aliases.join(`\`, \`${msg.guild.commandPrefix}`)}\`` : '`No aliases`'}\n**Description:** ${cmd.description}`, false));
+      commandios.forEach((cmd) => embed.addField(`\`↪\` ${cmd.fullName || cmd.name}`, `**Usage:** ${msg.guild.commandPrefix}\`${cmd.name}\`\n**Aliases:** ${cmd.aliases && cmd.aliases.length > 0 ? `\`${msg.guild.commandPrefix}${cmd.aliases.join(`\`, \`${msg.guild.commandPrefix}`)}\`` : '`No aliases`'}\n**Description:** ${cmd.description}`, false));
       return msg.say({ embed }).catch(console.error);
     }
     return msg.reply('Command or group was not found!').catch(console.error);

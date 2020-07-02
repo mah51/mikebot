@@ -9,6 +9,7 @@ module.exports = class botInfo extends Command {
       aliases: ['bi', 'botinfo'],
       group: 'info',
       memberName: 'bot-info',
+      fullName: 'Bot Info',
       description: 'Provides information about the bot',
     });
   }

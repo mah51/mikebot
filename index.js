@@ -20,7 +20,7 @@ const client = new CommandoClient({
   invite: 'https://discord.gg/UmXUUaA',
   disableEveryone: true,
   unknownCommandResponse: false,
-  ws: { intents: Intents.ALL },
+  ws: { intents: Intents.NON_PRIVILEGED },
 });
 
 if (process.env.DBL_TOKEN) {
@@ -68,6 +68,18 @@ client.on('disconnect', (event) => {
   client.logger.error(`[DISCONNECT] Disconnected with code ${event.code}.`);
   process.exit(0);
 });
+process.on('SIGINT', () => {
+  client.logger.warn('Exiting due to sigint');
+  try {
+    if (!client) {
+      client.provider.destroy();
+      client.destroy();
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  process.exit(0);
+});
 process.on('uncaughtException', (err, origin) => {
   client.logger.error(`Caught Exception:${err}:${err.stack} Exception origin: ${origin}`);
   process.exit(1);
@@ -94,8 +106,8 @@ client.registry.registerGroups([
   ['patterns', 'Pattern 🤨'],
   ['join-sound', 'Join Sounds 🔊'],
   ['fun', 'Fun 😆'],
-  ['games', 'Games ♟'],
-  ['gamer-btw', 'Gamer 🎮'],
+  ['games', 'Games 🎮'],
+  ['stats', 'Game Stats 📈'],
   ['music', 'Music 🎵'],
   ['reddit', 'Reddit 💀'],
   ['lookups', 'API Searches 🔎'],

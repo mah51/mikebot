@@ -5,6 +5,7 @@ const Spotify = require('node-spotify-api');
 const { Collection } = require('discord.js');
 const memberModel = require('./member');
 const guildModel = require('./guild');
+const errorModel = require('./logger');
 const MusicClient = require('./music');
 const { API } = require('../config.json');
 
@@ -32,6 +33,7 @@ class MikeBotClient extends CommandoClient {
     super(options);
     this.guildsData = guildModel;
     this.membersData = memberModel;
+    this.errorsData = errorModel;
     this.databaseCache = {};
     this.databaseCache.guilds = new Collection();
     this.databaseCache.members = new Collection();

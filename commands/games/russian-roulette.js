@@ -6,15 +6,16 @@ module.exports = class RussianRouletteCommand extends Command {
   constructor(client) {
     super(client, {
       name: 'russian-roulette',
-      aliases: ['r-r', 'russia-gun'],
-      group: 'games-mp',
+      aliases: ['r-r'],
+      group: 'games',
+      fullName: 'Russian Roulette',
       memberName: 'russian-roulette',
       description: 'Who will pull the trigger and die first?',
       guildOnly: true,
       args: [
         {
           key: 'opponent',
-          prompt: 'What user would you like to play against?',
+          prompt: 'Who would you like to play against?',
           type: 'user',
           default: () => this.client.user,
         },
