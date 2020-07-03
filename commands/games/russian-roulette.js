@@ -57,14 +57,14 @@ module.exports = class RussianRouletteCommand extends Command {
         const player = userTurn ? msg.author : opponent;
         const notPlayer = userTurn ? opponent : msg.author;
         if (gun[round]) {
-          await msg.say(`\`${player}\` 🎯 🔫 got unlucky... And Died ☠`);
+          await msg.say(`${player} 🎯 🔫 got unlucky... And Died ☠`);
           winner = notPlayer;
         } else {
           const embed = new MessageEmbed()
             .setFooter(this.client.setting.footer)
             .setColor(this.client.setting.colour)
             .setTimestamp()
-            .setDescription(`${player} pulled the trigger and survived to no ones relief! 🥱\n${opponent.bot ? 'Continue?' : `Do you want to risk your life, ${notPlayer}?`} (${8 - round - 1} shots left)`);
+            .setDescription(`${player} pulled the trigger and survived to no ones relief! 🥱\n${opponent.bot ? 'Continue?' : `Do you want to risk your life, ${notPlayer}? (reply with yes to continue)`} (${8 - round - 1} shots left)`);
           await msg.say(embed);
           const keepGoing = await verify(msg.channel, opponent.bot ? msg.author : notPlayer);
           if (!keepGoing) {

@@ -1,6 +1,6 @@
-![Linting](https://github.com/mah51/mikebot/workflows/Linting/badge.svg?branch=master) [![Discord Bots](https://top.gg/api/widget/status/698459684205494353.svg)](https://top.gg/bot/698459684205494353) 
+![Linting](https://github.com/mah51/mikebot/workflows/Linting/badge.svg?branch=master) 
 
-[![Discord Bots](https://top.gg/api/widget/servers/698459684205494353.svg)](https://top.gg/bot/698459684205494353) [![Discord Bots](https://top.gg/api/widget/owner/698459684205494353.svg)](https://top.gg/bot/698459684205494353)
+[![Discord Bots](https://top.gg/api/widget/698459684205494353.svg)](https://top.gg/bot/698459684205494353)
 # Welcome to the MikeBot Repository!
 
 ### Everything you need to know about mikebot 😍
@@ -8,5 +8,5 @@ MikeBot is a fun bot to enhance your discord server. The bot is constantly under
 
 **Get started with MikeBot's commands here:**
 
-https://docs.mikebot.xyz
+[MikeBot Documentation](https://docs.mikebot.xyz)
 
