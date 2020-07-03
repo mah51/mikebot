@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
+const axios = require('axios');
 const Command = require('../../structures/commands');
-const getMode = require('../../functions/commandFunctions/rlRanks');
-const http = require('../../functions/API/httpCall');
+const getMode = require('../../functions/other/rlRanks');
 
 module.exports = class rlLookupCommand extends Command {
   constructor(client) {
@@ -64,7 +64,7 @@ module.exports = class rlLookupCommand extends Command {
         break;
     }
     if (!platform) { return msg.reply('That is not a known platform.'); }
-    const req = await http(`https://rocketleague.tracker.network/api/v1/standard/profile/${platform}/${player}`);
+    const req = await axios.get(`https://rocketleague.tracker.network/api/v1/standard/profile/${platform}/${player}`);
     if (req.errors) { return msg.reply(`There was an error: ${req.errors[0].message}`).catch(console.error); }
     if (mode) {
       mode = await getMode(mode);

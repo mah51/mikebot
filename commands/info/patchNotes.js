@@ -1,8 +1,7 @@
-const Command = require('../../structures/commands');
 const { MessageEmbed } = require('discord.js');
-const got = require('got');
-const { github } = require('../../config.json').API;
+const axios = require('axios');
 const moment = require('moment');
+const Command = require('../../structures/commands');
 
 module.exports = class PatchNotesCommand extends Command {
   constructor(client) {
@@ -17,11 +16,12 @@ module.exports = class PatchNotesCommand extends Command {
   }
 
   async run(msg, args, fromPattern, something) {
-    const { body } = await got(github.url, {
+    const { data } = await axios.get('https://api.github.com/repos/mah51/mikebot/commits', {
       responseType: 'json',
-      username: github.user,
-      password: github.password,
+      username: process.env.GITHUB_USER,
+      password: process.env.GITHUB_PASS,
     });
+    const body = data;
     if (!body) { return msg.reply('There was an error connecting to github.').catch(console.error); }
     const commits = body.slice(0, 8);
     const embed = new MessageEmbed()

@@ -1,9 +1,8 @@
 const { MessageEmbed } = require('discord.js');
 const genius = require('genius-lyrics');
 const Command = require('../../structures/commands');
-const { API } = require('../../config.json');
 
-const Genius = new genius.Client(API.genius);
+const Genius = new genius.Client(process.env.GENIUS_KEY);
 
 module.exports = class lyrics extends Command {
   constructor(client) {

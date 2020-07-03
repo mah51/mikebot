@@ -1,7 +1,6 @@
 const { MessageEmbed } = require('discord.js');
+const axios = require('axios');
 const Command = require('../../structures/commands');
-const { http } = require('../../functions/API');
-const { API } = require('../../config.json');
 
 module.exports = class NASAAPI extends Command {
   constructor(client) {
@@ -15,9 +14,9 @@ module.exports = class NASAAPI extends Command {
   }
 
   async run(msg, args, fromPattern, something) {
-    const req = await http(`https://api.nasa.gov/planetary/apod?api_key=${API.nasa}`);
-    const embed = new MessageEmbed();
-    embed
+    const data = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_KEY}`);
+    const req = data.data;
+    const embed = new MessageEmbed()
       .setTitle(`${req.title} - NASA photo of the day - ${req.date}`)
       .setDescription(`Description - ${req.explanation}`)
       .setColor(this.client.setting.colour)

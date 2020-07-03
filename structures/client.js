@@ -7,7 +7,6 @@ const memberModel = require('./member');
 const guildModel = require('./guild');
 const errorModel = require('./logger');
 const MusicClient = require('./music');
-const { API } = require('../config.json');
 
 const levels = {
   levels: {
@@ -47,19 +46,18 @@ class MikeBotClient extends CommandoClient {
       successcolour: '#4BF08C',
       errorcolour: '#FF5251',
       footer: 'Powered by MikeBot 😎',
-      start_time: new Date.now(),
+      start_time: Date.now(),
     };
 
     // eslint-disable-next-line global-require
     this.version = require('../package.json').version;
-    this.embeds = require('../util/embeds');
+    this.embeds = new (require('../util/embeds'))(this);
     this.spotify = new Spotify({
-      id: 'f0f843b34e31434da9e87b9d16ba365d',
-      secret: '2a3eafdb69c744f7a5ea39a115850328',
+      id: process.env.SPOTIFY_ID,
+      secret: process.env.SPOTIFY_SECRET,
     });
-
     this.music = new MusicClient(this, {
-      apiKey: API.youtube,
+      apiKey: process.env.YOUTUBE_KEY,
       defVolume: 50,
       bitRate: 25000,
       maxHistory: 50,

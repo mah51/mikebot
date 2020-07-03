@@ -10,7 +10,7 @@ const { Intents } = require('discord.js');
 
 const readdir = util.promisify(fs.readdir);
 const CommandoClient = require('./structures/client');
-const MongoDBProvider = require('./functions/mongo-provider.js');
+const MongoDBProvider = require('./functions/other/mongo-provider.js');
 
 // Initialise client
 const client = new CommandoClient({
@@ -40,10 +40,13 @@ client
     MongoClient.connect(process.env.DB_CONNECTION, { useUnifiedTopology: true }).then((mongoClient) => new MongoDBProvider(mongoClient, 'Mike-Bot-Provider-Settings')),
   ).catch(console.error);
 
-mongoose.connect(process.env.MONGOOSE_TOKEN, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect(process.env.MONGOOSE_TOKEN, { useNewUrlParser: true, useUnifiedTopology: true }).then((connection) => {
   client.logger.info(chalk.bold('Connected to the Mongoose database.'));
 }).catch((err) => {
   client.logger.error(`Unable to connect to the Mongodb database. Error:${err}`);
+});
+mongoose.connection.on('close', () => {
+  mongoose.connection.removeAllListeners();
 });
 // Bot login confirmation
 const init = async () => {
@@ -64,24 +67,41 @@ client.on('disconnect', (event) => {
   client.logger.error(`[DISCONNECT] Disconnected with code ${event.code}.`);
   process.exit(0);
 });
-process.on('SIGINT', () => {
-  client.logger.warn('Exiting due to sigint');
-  try {
-    if (!client) {
-      client.provider.destroy();
-      client.destroy();
-    }
-  } catch (err) {
-    console.error(err);
-  }
+process.once('SIGINT', () => {
   process.exit(0);
 });
+
+process.on('SIGUSR1', () => {
+  process.exit(0);
+});
+
+process.on('SIGUSR2', () => {
+  process.exit(0);
+});
+
 process.on('uncaughtException', (err, origin) => {
   client.logger.error(`Caught Exception:${err}:${err.stack} Exception origin: ${origin}`);
   process.exit(1);
 });
 process.on('unhandledRejection', (reason, promise) => reason && client.logger.error(`Unhandled Rejection: ${promise} reason: ${reason.message} ${reason.stack} ${reason}`));
 
+process.on('exit', () => {
+  client.logger.warn('Goodbye! exiting...');
+  try {
+    if (client) {
+      client.provider.destroy();
+      client.destroy();
+    }
+    if (mongoose.connection.readyState === 1) {
+      mongoose.connection.close();
+      mongoose.connection.removeAllListeners();
+      if (mongoose.connection.readyState === 3 || mongoose.connection.readyState === 0) { client.logger.info('Disconnected from mongoose safely'); }
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  process.exit(0);
+});
 client.on('error', (err) => client.logger.error(err.stack));
 
 client.on('warn', (warn) => client.logger.warn(warn));
