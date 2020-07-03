@@ -19,7 +19,8 @@ module.exports = class SaveLink extends Command {
       .setTitle(`Add ${this.client.user.username} to your server`)
       .setURL('https://discord.com/oauth2/authorize?client_id=698459684205494353&permissions=1576528982&scope=bot')
       .addField('`Useful links 🔗`', '[Website](https://mikebot.xyz) - [Docs](https://docs.mikebot.xyz) - [Support server](https://discord.gg/UmXUUaA)')
+      .addField('❤', '[Vote for the bot](https://top.gg/bot/698459684205494353)')
       .setThumbnail(msg.client.user.avatarURL({ size: 128 }));
-    return msg.reply(embed).catch(console.error);
+    return msg.say(embed).catch(console.error);
   }
 };

@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
+const axios = require('axios');
 const Command = require('../../structures/commands');
-const { http } = require('../../functions/API');
 
 module.exports = class CountryInfo extends Command {
   constructor(client) {
@@ -19,8 +19,9 @@ module.exports = class CountryInfo extends Command {
     });
   }
 
-  async run(msg, { query }) {
-    const req = await http(`https://restcountries.eu/rest/v2/name/${query}`);
+  async run(msg, { query }, fromPattern, result) {
+    const data = await axios.get(`https://restcountries.eu/rest/v2/name/${query}`);
+    const req = data.data;
     if (req.length > 1) {
       let countries = '';
 

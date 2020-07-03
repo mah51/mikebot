@@ -15,7 +15,7 @@ module.exports = class {
     }
     const memberData = await msg.client.findMember({ id: msg.author.id, guildID: msg.guild.id }, false);
     if (memberData.cooldowns.message > Date.now()) { return; }
-    memberData.balance += 10;
+    memberData.balance += 5;
     memberData.messageCount += 1;
     memberData.xp += Math.round((Math.random() + 1) * 5);
     memberData.cooldowns.message = Date.now() + 60000;

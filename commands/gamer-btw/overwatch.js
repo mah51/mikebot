@@ -1,6 +1,5 @@
 const { MessageEmbed } = require('discord.js');
 const OWStats = require('overwatch-js');
-const axios = require('axios');
 const Command = require('../../structures/commands');
 
 module.exports = class OverwatchStatsCommand extends Command {

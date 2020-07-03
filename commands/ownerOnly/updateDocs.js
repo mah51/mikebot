@@ -1,8 +1,6 @@
-const { MessageEmbed } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const Command = require('../../structures/commands');
-const { API } = require('../../config.json');
 
 module.exports = class updateDocs extends Command {
   constructor(client) {

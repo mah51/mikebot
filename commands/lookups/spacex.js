@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
+const axios = require('axios');
 const Command = require('../../structures/commands');
-const { http } = require('../../functions/API/index');
 
 module.exports = class SpaceX extends Command {
   constructor(client) {
@@ -34,7 +34,8 @@ module.exports = class SpaceX extends Command {
   }
 
   async run(msg, { type }, fromPattern, something) {
-    const req = await http(`https://api.spacexdata.com/v3/launches/${type.toLowerCase()}`);
+    const data = await axios.get(`https://api.spacexdata.com/v3/launches/${type.toLowerCase()}`);
+    const req = data.data;
     const mission_name = req.mission_name || 'No name provided';
     const description = req.details || false;
     const date = req.launch_date_unix || false;

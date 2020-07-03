@@ -5,6 +5,7 @@
     "max-len": "off",
     "no-unused-vars": "off",
     "class-methods-use-this": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "no-unused-expressions": "off",
   }
 }

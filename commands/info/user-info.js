@@ -26,8 +26,9 @@ module.exports = class UserInfoCommand extends Command {
     });
   }
 
-  async run(msg, { member }, fromPattern, something) {
-    if (!member) {
+  async run(msg, args, fromPattern, something) {
+    let { member } = args;
+    if (!args.member) {
       member = msg.member;
     }
     const { user } = member;
@@ -36,7 +37,7 @@ module.exports = class UserInfoCommand extends Command {
     const embed = new MessageEmbed()
       .setTitle(`Server info for **${user.username}#${user.discriminator}**`)
       .setTimestamp()
-      .setThumbnail(user.displayAvatarURL())
+      .setThumbnail(user.displayAvatarURL({ size: 2048 }))
       .setColor(this.client.setting.colour)
       .setFooter(this.client.setting.footer)
       .setDescription('**Member Details**')

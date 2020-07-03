@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
+const axios = require('axios');
 const Command = require('../../structures/commands');
-const { http } = require('../../functions/API');
 
 module.exports = class randomMeme extends Command {
   constructor(client) {
@@ -16,7 +16,8 @@ module.exports = class randomMeme extends Command {
   }
 
   async run(msg, args, fromPattern, result) {
-    const content = await http('https://www.reddit.com/r/memes/random/.json');
+    const req = await axios.get('https://www.reddit.com/r/memes/random/.json');
+    const content = req.data;
     const { permalink } = content[0].data.children[0].data;
     const memeUrl = `https://reddit.com${permalink}`;
     const memeImage = content[0].data.children[0].data.url;

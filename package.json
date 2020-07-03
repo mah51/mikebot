@@ -1,6 +1,6 @@
 {
   "name": "mikebot",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "A multipurpose discord bot.",
   "main": "index.js",
   "engines": {
@@ -27,7 +27,6 @@
     "firebase-admin": "^8.12.1",
     "fortnite-api-io": "^1.4.0",
     "genius-lyrics": "^3.0.0",
-    "got": "^11.1.4",
     "moment": "^2.26.0",
     "moment-duration-format": "^2.3.2",
     "mongodb": "^3.5.8",
@@ -37,7 +36,6 @@
     "node-superfetch": "^0.1.10",
     "node-wordwrap": "https://github.com/substack/node-wordwrap.git",
     "overwatch-js": "^1.8.0",
-    "overwatch-stats-api": "^2.1.0",
     "r6statsapi": "^1.0.3",
     "shelljs": "^0.8.4",
     "simple-git": "^2.11.0",

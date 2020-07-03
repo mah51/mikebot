@@ -33,7 +33,7 @@ module.exports = class botInfo extends Command {
       .addField('Roles:', msg.guild.me.roles.cache.map((roles) => `\`${roles.name}\``).join(', '), false)
       .addField('Servers:', `I am currently in ${this.client.guilds.cache.size} servers 💯`, true)
       .addField('\u200B', '\u200B', true)
-      .addField('\u200B ❤', '[Support Server!](https://discord.gg/UmXUUaA) or [Website](https://mikebot.xyz)', true);
-    msg.reply(embed).catch(console.error);
+      .addField('\u200B ❤', '[Support](https://discord.gg/UmXUUaA) - [Website](https://mikebot.xyz) - [Vote](https://top.gg/bot/698459684205494353)', true);
+    msg.say(embed).catch(console.error);
   }
 };

@@ -30,6 +30,7 @@ module.exports = mongoose.model('Member', new mongoose.Schema({
     default: {
       work: 0,
       message: 0,
+      commands: 0,
       steal: 0,
     },
   },

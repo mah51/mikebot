@@ -1,8 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
+const axios = require('axios');
 const Command = require('../../structures/commands');
-const { http } = require('../../functions/API');
-const { API } = require('../../config.json');
 
 module.exports = class NeoCommand extends Command {
   constructor(client) {
@@ -17,7 +16,8 @@ module.exports = class NeoCommand extends Command {
 
   async run(msg, args, fromPattern, something) {
     const today = moment(Date.now()).format('YYYY-MM-DD');
-    const req = await http(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${API.nasa}`);
+    const data = await axios.get(`https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${process.env.NASA_KEY}`);
+    const req = data.data;
     const ordered = req.near_earth_objects[today].sort((a, b) => {
       const c = a.estimated_diameter.meters.estimated_diameter_max;
       const d = b.estimated_diameter.meters.estimated_diameter_max;

@@ -39,4 +39,19 @@ module.exports = {
     if (no.includes(choice) || extraNo.includes(choice)) return false;
     return false;
   },
+
+  youtubeParser: (url) => {
+    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[7].length === 11) ? match[7] : false;
+  },
+
+  queryFormatter: (query) => {
+    let queryString = '';
+    const queryA = query.split(/\s+/);
+    for (let i = 0; i < queryA.length; i += 1) {
+      queryString += `${queryA[i]}%20`;
+    }
+    return queryString;
+  },
 };

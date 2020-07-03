@@ -1,6 +1,6 @@
 const ytdl = require('ytdl-core');
 const Command = require('../../structures/commands');
-const { youtubeParser } = require('../../functions/musicFunctions');
+const { youtubeParser } = require('../../util/util');
 
 module.exports = class SaveLink extends Command {
   constructor(client) {

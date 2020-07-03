@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
+const axios = require('axios');
 const Command = require('../../structures/commands');
-const { http, queryFormatter } = require('../../functions/API');
+const { queryFormatter } = require('../../util/util');
 
 module.exports = class UrbanDictionary extends Command {
   constructor(client) {
@@ -24,7 +25,8 @@ module.exports = class UrbanDictionary extends Command {
 
   async run(msg, { query }, fromPattern, something) {
     const queryS = queryFormatter(query);
-    const req = await http(`http://api.urbandictionary.com/v0/define?term=${queryS}`);
+    const data = await axios.get(`http://api.urbandictionary.com/v0/define?term=${queryS}`);
+    const req = data.data;
     if (req.list.length === 0) {
       await msg.say("That word isn't on urban dictionary. Sort it out");
     } else if (req === 'undefined') {

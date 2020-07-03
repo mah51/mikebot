@@ -7,7 +7,6 @@ const memberModel = require('./member');
 const guildModel = require('./guild');
 const errorModel = require('./logger');
 const MusicClient = require('./music');
-const { API } = require('../config.json');
 
 const levels = {
   levels: {
@@ -47,15 +46,19 @@ class MikeBotClient extends CommandoClient {
       successcolour: '#4BF08C',
       errorcolour: '#FF5251',
       footer: 'Powered by MikeBot 😎',
+      start_time: Date.now(),
     };
 
+    // eslint-disable-next-line global-require
+    this.version = require('../package.json').version;
+    // eslint-disable-next-line global-require
+    this.embeds = new (require('../util/embeds'))(this);
     this.spotify = new Spotify({
-      id: 'f0f843b34e31434da9e87b9d16ba365d',
-      secret: '2a3eafdb69c744f7a5ea39a115850328',
+      id: process.env.SPOTIFY_ID,
+      secret: process.env.SPOTIFY_SECRET,
     });
-
     this.music = new MusicClient(this, {
-      apiKey: API.youtube,
+      apiKey: process.env.YOUTUBE_KEY,
       defVolume: 50,
       bitRate: 25000,
       maxHistory: 50,
@@ -91,10 +94,6 @@ class MikeBotClient extends CommandoClient {
         new winston.transports.Console(),
       ],
     });
-  }
-
-  inPhoneCall(channel) {
-    return this.phone.some((call) => call.origin.id === channel.id || call.recipient.id === channel.id);
   }
 
   async findGuild({ id: guildID }, isLean = false) {
