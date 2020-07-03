@@ -29,7 +29,7 @@ module.exports = class {
         );
       }
     }
-    guild.owner.send("Thank's so much for inviting me to your server! \nI hope I don't disappoint, and if I do make sure to leave an .idea on how to improve me 😉.", {
+    guild.owner ? guild.owner.send("Thank's so much for inviting me to your server! \nI hope I don't disappoint, and if I do make sure to leave an .idea on how to improve me 😉.", {
       embed: {
         color: guild.client.setting.colour,
         title: 'Getting started with MikeBot',
@@ -61,9 +61,9 @@ module.exports = class {
         footer: {
           text: 'Made by Mikerophone 😃.',
         },
-        setTimestamp() {},
+        timestamp: Date.now(),
       },
-    }).catch(console.error);
+    }).catch(console.error) : console.log('Joined guild but couldn\'t DM owner.');
 
     defaultChannel.send(`Hello, my name is MikeBot! Here is a list of all my commands, if you need more information about each command do ${guild.commandPrefix}help <command name> or visit https://mikebot.xyz 😉
 If you find any bugs or think of a sicc idea use .idea or .bug to send them to the support server! 🎉

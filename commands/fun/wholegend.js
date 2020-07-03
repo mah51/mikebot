@@ -14,7 +14,7 @@ module.exports = class whoLegend extends Command {
   }
 
   async run(msg, args, fromPattern, something) {
-    const members = await msg.guild.members.fetch();
+    const members = await msg.guild.members.fetch({ cache: false });
     const member = members.random();
     const embed = new MessageEmbed()
       .setTitle(member.user.username)

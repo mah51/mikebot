@@ -7,7 +7,7 @@ module.exports = class {
     this.client.logger.silly(`Unlucky pal, you got kicked from ${guild.name} with ${guild.memberCount} members, owned by ${guild.owner.user.username}`);
     const guildData = await this.client.guildsData.findOne({ id: guild.id }).populate('members');
     for (const member of guildData.members) {
-      if (await this.client.membersData.findById(member)) console.log('test');
+      await this.client.membersData.deleteOne(member).catch(console.error);
     }
     guildData.remove().catch(console.error);
   }

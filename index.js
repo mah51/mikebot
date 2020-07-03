@@ -20,6 +20,8 @@ const client = new CommandoClient({
   disableEveryone: true,
   unknownCommandResponse: false,
   ws: { intents: Intents.NON_PRIVILEGED },
+  messageCacheMaxSize: 100,
+
 });
 
 if (process.env.DBL_TOKEN) {
