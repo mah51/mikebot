@@ -90,12 +90,6 @@ client.on('error', (err) => client.logger.error(err.stack));
 
 client.on('warn', (warn) => client.logger.warn(warn));
 
-client.on('commandRun', (command) => {
-  if (command.uses === undefined) return;
-  // eslint-disable-next-line no-param-reassign
-  command.uses += 1;
-});
-
 client.on('commandError', (command, err) => {
   client.logger.error(`[COMMAND:${command.name}]\n${err.stack}`);
 });

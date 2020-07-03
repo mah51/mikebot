@@ -17,7 +17,7 @@ const descriptions = {
   text: 'Manipulate text like a chad.',
   info: 'Get info on everything in the server.',
   'server-tools': 'You\'d be a tool not to use these tools...',
-  currency: 'Commands for currency',
+  currency: 'Using commands and sending messages → profit!',
   util: 'Utility commands (bit boring)',
   misc: 'A bunch of random commands.',
 };
