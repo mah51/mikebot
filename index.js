@@ -10,7 +10,6 @@ const { Intents } = require('discord.js');
 
 const readdir = util.promisify(fs.readdir);
 const CommandoClient = require('./structures/client');
-const commandRun = require('./functions/commandFunctions/commandRun');
 const MongoDBProvider = require('./functions/mongo-provider.js');
 
 // Initialise client
@@ -61,9 +60,6 @@ const init = async () => {
 };
 init().catch(console.error);
 
-client.on('commandRun', (command, promise, message, args, fromPattern, result) => {
-  commandRun(command, promise, message, args, fromPattern, result);
-});
 client.on('disconnect', (event) => {
   client.logger.error(`[DISCONNECT] Disconnected with code ${event.code}.`);
   process.exit(0);
