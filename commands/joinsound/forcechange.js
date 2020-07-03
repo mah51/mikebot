@@ -37,7 +37,7 @@ module.exports = class SaveLink extends Command {
     if (!memberInfo.joinSound.url) return this.makeError(msg, 'This user has not yet setup a link, and cannot be changed!').catch(console.error);
     if (linkInfo.length_seconds > 7) return this.makeError(msg, "Audio sample too long, that's going to annoy too many people!").catch(console.error);
     const videoID = await youtubeParser(link);
-    if (!videoID) { return this.makeError('That is an invalid youtube link.').catch(console.error); }
+    if (!videoID) { return this.makeError(msg, 'That is an invalid youtube link.').catch(console.error); }
     memberInfo.joinSound.url = videoID;
     memberInfo.markModified('joinSound');
     await memberInfo.save();

@@ -14,7 +14,7 @@ module.exports = class SaveLink extends Command {
 
   async run(msg, { link }, fromPattern, something) {
     const memberInfo = await this.client.findMember({ id: msg.member.id, guildID: msg.guild.id });
-    if (!memberInfo || !memberInfo.joinSound.url) { return this.makeError('No link is set up. Use .save-link <link> to add one.').catch(console.error); }
+    if (!memberInfo || !memberInfo.joinSound.url) { return this.makeError(msg, 'No link is set up. Use .save-link <link> to add one.').catch(console.error); }
     memberInfo.joinSound.url = null;
     memberInfo.markModified('joinSound.url');
     memberInfo.save();

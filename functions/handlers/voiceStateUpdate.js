@@ -19,6 +19,7 @@ module.exports = class {
           return;
         }
         const vc = newState.channel;
+        if (!vc.permissionsFor(newState.guild.me).has(['CONNECT', 'SPEAK'])) { return; }
         vc.join()
           .then((connection) => {
             const dispatch = connection.play(ytdl(result.url), { volume: 0.5 });

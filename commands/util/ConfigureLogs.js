@@ -35,7 +35,7 @@ module.exports = class modLog extends Command {
     data.guild.logs = channel.id;
     data.guild.markModified('logs');
     data.guild.save();
-    if (!msg.guild.me.permissionsIn(channel).has('SEND_MESSAGES')) { return this.makeError('Bot does not have permissions to send messages in this channel.'); }
+    if (!msg.guild.me.permissionsIn(channel).has('SEND_MESSAGES')) { return this.makeError(msg, 'Bot does not have permissions to send messages in this channel.'); }
     const embed = new MessageEmbed()
       .setFooter(this.client.setting.footer)
       .setColor(this.client.setting.colour)

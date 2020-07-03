@@ -14,9 +14,9 @@ module.exports = class SaveLink extends Command {
     });
   }
 
-  async run(msg) {
-    const memberInfo = this.client.findMember({ id: msg.member.id, guildID: msg.guild.id }, true);
-    if (!memberInfo.joinSound.url) return this.makeError(`No link saved use ${msg.guild.commandPrefix}savelink < - YT URL - >`).catch(console.error);
+  async run(msg, args, fromPattern, result) {
+    const memberInfo = await this.client.findMember({ id: msg.member.id, guildID: msg.guild.id }, true);
+    if (!memberInfo.joinSound.url) return this.makeError(msg, `No link saved use ${msg.guild.commandPrefix}savelink < - YT URL - >`).catch(console.error);
 
     const urlInfo = await ytdl.getBasicInfo(memberInfo.joinSound.url);
     const embed = new MessageEmbed()
@@ -33,6 +33,6 @@ module.exports = class SaveLink extends Command {
       .setThumbnail(urlInfo.player_response.videoDetails.thumbnail.thumbnails[1].url)
       .setURL(urlInfo.video_url);
 
-    await msg.embed(embed);
+    await msg.embed(embed).catch(console.error);
   }
 };
