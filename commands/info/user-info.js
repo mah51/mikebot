@@ -26,8 +26,9 @@ module.exports = class UserInfoCommand extends Command {
     });
   }
 
-  async run(msg, { member }, fromPattern, something) {
-    if (!member) {
+  async run(msg, args, fromPattern, something) {
+    let { member } = args;
+    if (!args.member) {
       member = msg.member;
     }
     const { user } = member;

@@ -51,6 +51,7 @@ class MikeBotClient extends CommandoClient {
 
     // eslint-disable-next-line global-require
     this.version = require('../package.json').version;
+    // eslint-disable-next-line global-require
     this.embeds = new (require('../util/embeds'))(this);
     this.spotify = new Spotify({
       id: process.env.SPOTIFY_ID,
