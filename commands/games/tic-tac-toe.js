@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const Command = require('../../structures/commands');
-const { verify } = require('../../functions/commandFunctions/util');
+const { verify } = require('../../util/util');
 
 module.exports = class TicTacToeCommand extends Command {
   constructor(client) {

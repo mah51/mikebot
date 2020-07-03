@@ -47,8 +47,12 @@ class MikeBotClient extends CommandoClient {
       successcolour: '#4BF08C',
       errorcolour: '#FF5251',
       footer: 'Powered by MikeBot 😎',
+      start_time: new Date.now(),
     };
 
+    // eslint-disable-next-line global-require
+    this.version = require('../package.json').version;
+    this.embeds = require('../util/embeds');
     this.spotify = new Spotify({
       id: 'f0f843b34e31434da9e87b9d16ba365d',
       secret: '2a3eafdb69c744f7a5ea39a115850328',
@@ -91,10 +95,6 @@ class MikeBotClient extends CommandoClient {
         new winston.transports.Console(),
       ],
     });
-  }
-
-  inPhoneCall(channel) {
-    return this.phone.some((call) => call.origin.id === channel.id || call.recipient.id === channel.id);
   }
 
   async findGuild({ id: guildID }, isLean = false) {

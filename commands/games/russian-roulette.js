@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const Command = require('../../structures/commands');
-const { shuffle, verify } = require('../../functions/commandFunctions/util');
+const { shuffle, verify } = require('../../util/util');
 
 module.exports = class RussianRouletteCommand extends Command {
   constructor(client) {
