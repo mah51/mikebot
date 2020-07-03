@@ -35,13 +35,13 @@ module.exports = class ErrorLeaderboardCommand extends MikeBotCommand {
         .setTitle('Command Usage Leaderboard:')
         .setDescription(`since server restart - ${moment(msg.client.setting.start_time).format('HH:mm:ss [-] DD/MM/YY')}`);
       msg.client.registry.commands
-        .filter((command) => command.errorCount !== undefined && !command.unknown)
+        .filter((commandxd) => commandxd.errorCount !== undefined && !commandxd.unknown)
         .sort((a, b) => b.errorCount - a.errorCount)
         .array()
         .slice(0, 10)
-        .forEach((command, index) => {
+        .forEach((commandoa, index) => {
           const number = index + 1;
-          embed.addField(`**${number}. ${command.name}** command`, `**${command.errorCount}** error` + `${command.errorCount !== 1 ? 's' : ''}`, false);
+          embed.addField(`**${number}. ${commandoa.name}** command`, `**${commandoa.errorCount}** error ${commandoa.errorCount !== 1 ? 's' : ''}`, false);
         });
 
       return embed;

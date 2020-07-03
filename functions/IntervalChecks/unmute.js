@@ -31,9 +31,11 @@ module.exports = async (client) => {
       endDate: null,
       case: null,
     };
+    // eslint-disable-next-line no-await-in-loop
     const user = await client.users.fetch(memberData.id);
     memberData.save();
 
+    // eslint-disable-next-line no-continue
     if (!user) continue;
     const logEmbed = new MessageEmbed()
       .setFooter(client.setting.footer)

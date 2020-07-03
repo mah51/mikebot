@@ -5,16 +5,17 @@ const botInvRegex = /(https?:\/\/)?(www\.|canary\.|ptb\.)?discord(app)?\.com\/(a
 
 module.exports = {
   stripInvites: (str, { guild = true, bot = true, text = '[Invite removed]' } = {}) => {
-    if (guild) str = str.replace(inviteRegex, text);
-    if (bot) str = str.replace(botInvRegex, text);
-    return str;
+    let string = str;
+    if (guild) string = str.replace(inviteRegex, text);
+    if (bot) string = str.replace(botInvRegex, text);
+    return string;
   },
 
   shorten: (text, maxLen = 2000) => (text.length > maxLen ? `${text.substr(0, maxLen - 3)}...` : text),
 
   shuffle: (array) => {
     const arr = array.slice(0);
-    for (let i = arr.length - 1; i >= 0; i--) {
+    for (let i = arr.length - 1; i >= 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
       const temp = arr[i];
       arr[i] = arr[j];

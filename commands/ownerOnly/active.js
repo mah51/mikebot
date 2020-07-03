@@ -38,7 +38,7 @@ module.exports = class Active extends Command {
     this.client.guilds.cache.forEach((guild) => {
       const timers = this.client.timers.get(guild.id);
       let timercount = 0;
-      timers ? timers.forEach(() => timercount++) : '';
+      timers ? timers.forEach(() => { timercount += 1; }) : '';
       if (timercount > 0) {
         timersActive.addField(msg.guild.name, timercount, true);
       }

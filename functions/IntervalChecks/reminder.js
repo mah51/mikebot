@@ -5,6 +5,7 @@ module.exports = async (client) => {
   if (client.membersData === undefined) return;
   const reminders = await client.membersData.find({ reminders: { $exists: true, $ne: [] } });
   for (const memberData of reminders) {
+    // eslint-disable-next-line no-await-in-loop
     const guild = client.guilds.cache.get(memberData.guildID) || await client.guilds.fetch(memberData.guildID);
     // eslint-disable-next-line no-continue
     if (!guild) continue;
@@ -15,11 +16,13 @@ module.exports = async (client) => {
     // eslint-disable-next-line no-continue
     if (!member) continue;
     for (const reminder of memberData.reminders) {
+      // eslint-disable-next-line no-continue
       if (reminder.time > Date.now()) { continue; }
       // eslint-disable-next-line no-await-in-loop
       const channel = guild.channels.cache.get(reminder.channel) || await guild.channels.fetch(reminder.channel);
       memberData.reminders.splice(memberData.reminders.indexOf(reminder));
       memberData.markModified('reminders');
+      // eslint-disable-next-line no-await-in-loop
       await memberData.save();
       if (!channel) {
         return;

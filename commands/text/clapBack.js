@@ -1,7 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const Command = require('../../structures/commands');
 
-
 module.exports = class clapBack extends Command {
   constructor(client) {
     super(client, {

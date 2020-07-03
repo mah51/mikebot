@@ -36,13 +36,13 @@ module.exports = class CountryInfo extends Command {
     } else {
       const embed = new MessageEmbed();
       const reqs = req[0];
-      let currencies_s = '';
-      let languages_s = '';
+      let currenciesS = '';
+      let languagesS = '';
       reqs.currencies.forEach((current) => {
-        currencies_s += (`${current.symbol} - ${current.name}\n`);
+        currenciesS += (`${current.symbol} - ${current.name}\n`);
       });
       reqs.languages.forEach((language) => {
-        languages_s += `${language.name} - ${language.iso639_1}\n`;
+        languagesS += `${language.name} - ${language.iso639_1}\n`;
       });
       embed
         .setColor(this.client.setting.colour)
@@ -50,15 +50,15 @@ module.exports = class CountryInfo extends Command {
         .setTitle(`Country lookup - ${reqs.name}`)
         .setTimestamp()
         .setDescription(`Native name - ${reqs.nativeName}`)
-        .addFields(
+        .addFields([
           { name: 'Continent', value: reqs.region, inline: true },
           { name: 'Population', value: reqs.population, inline: true },
           { name: 'Capital', value: reqs.capital, inline: true },
           { name: 'Size', value: `${reqs.area} km²`, inline: true },
           { name: 'Domain', value: `.co${reqs.topLevelDomain}`, inline: true },
-          { name: 'Currencies', value: currencies_s, inline: true },
-          { name: 'Languages', value: languages_s, inline: true },
-        );
+          { name: 'Currencies', value: currenciesS, inline: true },
+          { name: 'Languages', value: languagesS, inline: true },
+        ]);
       await msg.say(embed);
     }
   }

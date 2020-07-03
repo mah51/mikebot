@@ -69,6 +69,7 @@ module.exports = class CoinFlipCommand extends Command {
         .setFooter(this.client.setting.footer)
         .setColor(this.client.setting.colour)
         .setTimestamp()
+        // eslint-disable-next-line no-nested-ternary
         .setAuthor(authorWin ? 'Winner!' : member ? 'Winner!' : 'Loser!', (member && !authorWin ? member.user.displayAvatarURL() : msg.author.displayAvatarURL()))
         .setDescription(`${authorWin ? `${msg.member} won!` : ` ${member ? `${member} won!` : `${msg.member.displayName} flipped heads and got tails :/`}`} ${authorWin ? `${msg.member.displayName} earned $${bet}${member ? `To ${member.displayName}'s disappointment!` : ''}!` : ` ${msg.member.displayName} was fined $${bet}${member ? `, by ${member.displayName}` : ''}!`}`);
       this.client.games.delete(msg.channel.id);

@@ -28,8 +28,8 @@ module.exports = class updateDocs extends Command {
       if (err) throw err;
 
       for (const file of files) {
-        fs.unlink(path.join(filePath, file), (err) => {
-          if (err) throw err;
+        fs.unlink(path.join(filePath, file), (error) => {
+          if (error) throw error;
           console.log(`unlink on ${file}`);
         });
       }

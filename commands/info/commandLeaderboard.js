@@ -23,7 +23,7 @@ module.exports = class CommandLeaderboardCommand extends Command {
   }
 
   async run(msg, { page }, fromPattern, something) {
-    function makeLeaderboard(page) {
+    function makeLeaderboard() {
       const embed = new MessageEmbed()
         .setFooter(msg.client.setting.footer)
         .setColor(msg.client.setting.colour)
@@ -37,12 +37,12 @@ module.exports = class CommandLeaderboardCommand extends Command {
         .slice((page - 1) * 10, page * 10)
         .forEach((command, index) => {
           const number = index + 1;
-          embed.addField(`**${number}. ${command.name}** command`, `**${command.uses}** use` + `${command.uses !== 1 ? 's' : ''}`, false);
+          embed.addField(`**${number}. ${command.name}** command`, `**${command.uses}** use ${command.uses !== 1 ? 's' : ''}`, false);
         });
 
       return embed;
     }
 
-    return msg.say(await makeLeaderboard(page)).catch(console.error);
+    return msg.say(await makeLeaderboard()).catch(console.error);
   }
 };

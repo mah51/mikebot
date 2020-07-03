@@ -36,7 +36,7 @@ module.exports = class SpaceX extends Command {
   async run(msg, { type }, fromPattern, something) {
     const data = await axios.get(`https://api.spacexdata.com/v3/launches/${type.toLowerCase()}`);
     const req = data.data;
-    const mission_name = req.mission_name || 'No name provided';
+    const missionName = req.mission_name || 'No name provided';
     const description = req.details || false;
     const date = req.launch_date_unix || false;
     const rocket = {
@@ -57,18 +57,18 @@ module.exports = class SpaceX extends Command {
       .setColor(this.client.setting.colour)
       .setTimestamp()
       .setImage(image)
-      .setTitle(`Information for ${mission_name}`);
+      .setTitle(`Information for ${missionName}`);
     date ? embed.setDescription(`Launch date: ${moment.unix(date).format('LLLL')}`) : '';
     rocket.name ? embed.addField(`Rocket: ${rocket.name}`, `${rocket.vehicle ? `**Landing vehicle: **${rocket.vehicle}` : ''}\n${rocket.reused !== null ? `**Reused core: ** ${rocket.reused}` : ''}`) : '';
     rocket.payload.name ? embed.addField(`Payload: ${rocket.payload.customer}`, `${rocket.payload.customer ? `**Customer:** ${rocket.payload.customer}` : ''}\n${rocket.payload.weight ? `**Weight:** ${rocket.payload.weight} kg` : ''}\n${rocket.payload.orbit ? `**Orbit:** ${rocket.payload.orbit}` : ''}`) : '';
-    const details_embed = new MessageEmbed()
+    const detailsEmbed = new MessageEmbed()
       .setFooter(this.client.setting.footer)
       .setColor(this.client.setting.colour)
       .setTimestamp()
       .setTitle('Additional details')
       .setDescription(description);
     return msg.say(embed).then(() => {
-      if (description) { return msg.say(details_embed); }
+      if (description) { return msg.say(detailsEmbed); }
     }).catch(console.error);
   }
 };

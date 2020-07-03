@@ -1,4 +1,3 @@
-
 const Command = require('../../structures/commands');
 
 module.exports = class replaceAllBs extends Command {

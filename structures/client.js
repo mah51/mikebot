@@ -97,6 +97,7 @@ class MikeBotClient extends CommandoClient {
   }
 
   async findGuild({ id: guildID }, isLean = false) {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
       if (this.databaseCache.guilds.get(guildID)) {
         resolve(this.databaseCache.guilds.get(guildID));
@@ -105,6 +106,7 @@ class MikeBotClient extends CommandoClient {
         if (guildData) {
           resolve(guildData);
         } else {
+          // eslint-disable-next-line new-cap
           guildData = new this.guildsData({ id: guildID });
           await guildData.save();
           resolve(guildData);
@@ -115,6 +117,7 @@ class MikeBotClient extends CommandoClient {
   }
 
   async findMember({ id: memberID, guildID }, isLean = false) {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
       if (this.databaseCache.members.get()) {
         resolve(isLean ? this.databaseCache.members.get(`${memberID}${guildID}`).toJSON() : this.databaseCache.members.get(`${memberID}${guildID}`));
@@ -123,10 +126,12 @@ class MikeBotClient extends CommandoClient {
         if (memberData) {
           resolve(memberData);
         } else {
+          // eslint-disable-next-line new-cap
           memberData = new this.membersData({ id: memberID, guildID });
           await memberData.save();
           const guild = await this.findGuild({ id: guildID });
           if (guild) {
+            // eslint-disable-next-line no-underscore-dangle
             guild.members.push(memberData._id);
             await guild.save();
           }

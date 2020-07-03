@@ -35,15 +35,15 @@ module.exports = class ClearBotCommand extends Command {
     if (num > 100) {
       num = 100;
     }
-    const unfilteredMessages = await msg.channel.messages.fetch({ limit: num });
+    const unfilteredMessages = await msg.channel.messages.fetch({ limit: num }, false);
     const messages = unfilteredMessages.filter((message) => {
       if (inversed) {
         return message.author.id !== msg.client.user.id;
       }
       return message.author.id === msg.client.user.id;
     });
-    return msg.channel.bulkDelete(messages, false).then((messages) => {
-      msg.reply(`I searched the last 100 messages. I found and deleted ${messages.size} messages${inversed ? ' not' : ''} sent by me!`).then((magga) => {
+    return msg.channel.bulkDelete(messages, false).then((messagesxd) => {
+      msg.reply(`I searched the last 100 messages. I found and deleted ${messagesxd.size} messages${inversed ? ' not' : ''} sent by me!`).then((magga) => {
         magga.delete({ timeout: 4000 });
       }).catch(console.error);
     }).catch(console.error);

@@ -55,7 +55,7 @@ const init = async () => {
   const evtFiles = await readdir('./functions/handlers').catch(console.error);
   const loadedFiles = evtFiles.map((file) => {
     const eventName = file.split('.')[0];
-    // eslint-disable-next-line global-require
+    // eslint-disable-next-line global-require,import/no-dynamic-require
     const event = new (require(`./functions/handlers/${file}`))(client);
     client.on(eventName, (...args) => event.run(...args));
     delete require.cache[require.resolve(`./functions/handlers/${file}`)];

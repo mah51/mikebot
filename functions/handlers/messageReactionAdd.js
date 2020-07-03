@@ -4,6 +4,6 @@ module.exports = class {
   }
 
   async run(reaction, user) {
-
+    return null;
   }
 };

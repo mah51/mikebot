@@ -101,6 +101,7 @@ module.exports = class MusicClient {
     const options = {
       filter: 'audioonly',
       quality: 'highestaudio',
+      // eslint-disable-next-line no-bitwise
       highWaterMark: 1 << 25,
     };
     if (isLive) {
@@ -193,7 +194,6 @@ module.exports = class MusicClient {
     const tracks = await this.client.spotify.request(`https://api.spotify.com/v1/playlists/${playId}/tracks?offset=${offset}&limit=5`);
     const trackArray = tracks.items.map((track) => [track.track.artists[0].name, track.track.name]);
 
-
     const finalTracks = await this.getSongsViaSearchQuery(`${trackArray[0][0]} - ${trackArray[0][1]}`);
   }
 
@@ -244,6 +244,7 @@ module.exports = class MusicClient {
       song.uploader = info.snippet.channelTitle;
       song.uploaderURL = `https://www.youtube.com/channel/${info.snippet.channelId}`;
       song.duration = moment
+        // eslint-disable-next-line no-await-in-loop
         .duration(parseInt((await ytdl.getBasicInfo(song.url)).length_seconds), 'seconds')
         .format();
       songs.push(song);
@@ -259,6 +260,7 @@ module.exports = class MusicClient {
     let songs = [];
     let note;
     if (searchString.includes('youtu.be/') || searchString.includes('youtube.com/')) {
+      // eslint-disable-next-line prefer-destructuring
       if (searchString.includes('&')) searchString = searchString.split('&')[0];
       if (searchString.includes('watch') || searchString.includes('youtu.be/')) {
         note = await this.note(msg, 'Hunting down the link audio', MusicClient.noteType.SEARCH);
@@ -295,6 +297,7 @@ module.exports = class MusicClient {
       .addField('Repeat', `${repeatMode}`, true);
     const songDisplay = await msg.channel.send(embed);
     const emojiList = ['⏪', '⏯', '⏩', '⏹'];
+    // eslint-disable-next-line no-await-in-loop
     for (const emoji of emojiList) await songDisplay.react(emoji);
     const reactionCollector = songDisplay.createReactionCollector(
       (reaction, user) => emojiList.includes(reaction.emoji.name) && !user.bot,
@@ -396,6 +399,7 @@ module.exports = class MusicClient {
         });
         songs = songs.slice(0, this.maxQueue - guild.queue.length);
       }
+      // eslint-disable-next-line no-restricted-syntax
       for (const song of songs) {
         song.requester = msg.author.id;
         song.requesterAvatarURL = msg.author.displayAvatarURL();
@@ -419,7 +423,7 @@ module.exports = class MusicClient {
 
   async clearFunction(msg) {
     const guild = await this.getGuild(msg.guild.id);
-    guild.queue = new Array();
+    guild.queue = [];
     await this.note(msg, 'Emptied the queue.', MusicClient.noteType.MUSIC);
   }
 
@@ -474,7 +478,7 @@ module.exports = class MusicClient {
   async stopFunction(msg) {
     const guild = await this.getGuild(msg.guild.id);
     await this.stop(guild, msg);
-    guild.queue = new Array();
+    guild.queue = [];
     await this.note(msg, 'Queue is now empty.', MusicClient.noteType.MUSIC);
   }
 
@@ -517,7 +521,7 @@ module.exports = class MusicClient {
     this.logger.info(`[COMMAND] TYPE:SHUFFLE AUTHOR_ID:${msg.author.id} SERVERID:${msg.guild.id}`);
     const guild = await this.getGuild(msg.guild.id);
     if (guild.queue.length < 1) return this.note(msg, 'Queue is empty.', MusicClient.noteType.ERROR);
-    for (let i = guild.queue.length - 1; i > 0; i--) {
+    for (let i = guild.queue.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
       [guild.queue[i], guild.queue[j]] = [guild.queue[j], guild.queue[i]];
     }

@@ -37,11 +37,11 @@ module.exports = class Joke extends Command {
       .setFooter(`👍  ${memeUpvotes}  💬  ${memeNumComments} - ${this.client.setting.footer}`);
 
     msg.channel.send(embed).catch(console.error)
-      .then((msg) => {
+      .then((message) => {
         const interval = setTimeout(() => {
           embed.setDescription(joke);
           clearInterval(interval);
-          msg.edit(embed).catch(console.error);
+          message.edit(embed).catch(console.error);
         }, time * 1000);
       });
   }

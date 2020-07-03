@@ -137,8 +137,8 @@ module.exports = class r6StatsCommand extends Command {
         .addFields([
           { name: 'Season MMR', value: `Current: ${regionsdata.mmr}\nMax: ${regionsdata.max_mmr}\nLast match MMR: ${regionsdata.last_match_mmr_change}`, inline: true },
           { name: '\u200b', value: '\u200b', inline: true },
-          { name: 'Win/Loss', value: `Wins: ${regionsdata.wins}\nLosses: ${regionsdata.losses}\nW/L: ${Math.round(regionsdata.wins / regionsdata.losses * 10) / 10}`, inline: true },
-          { name: 'K/D', value: `Kills: ${regionsdata.kills}\nDeaths: ${regionsdata.deaths}\nK/D: ${Math.round(regionsdata.kills / regionsdata.deaths * 10) / 10}`, inline: true },
+          { name: 'Win/Loss', value: `Wins: ${regionsdata.wins}\nLosses: ${regionsdata.losses}\nW/L: ${Math.round((regionsdata.wins / regionsdata.losses) * 10) / 10}`, inline: true },
+          { name: 'K/D', value: `Kills: ${regionsdata.kills}\nDeaths: ${regionsdata.deaths}\nK/D: ${Math.round((regionsdata.kills / regionsdata.deaths) * 10) / 10}`, inline: true },
           { name: '\u200b', value: '\u200b', inline: true },
           { name: 'Season info', value: `Started: ${moment(seasonData.start_date).format('DD/MM/YY')} ${seasonData.end_date ? `Ended: ${moment(seasonData.end_date).format('DD/MM/YY')}` : ''}`, inline: true },
         ]);
@@ -149,8 +149,8 @@ module.exports = class r6StatsCommand extends Command {
       const data = await API.getOperatorStats(username, platform);
       if (data.status === 'error') { return msg.reply(`There was an error, that user probably doesn't exist: ${data.error}`); }
       if (type.length === 2) {
-        const operator = data.operators.filter((operator) => operator.name.toLowerCase() === type[1].toLowerCase())[0];
-        if (!operator) { return msg.reply(`That operator was not recognised!\nTry any of these: \`${data.operators.map((operator) => operator.name).join('`, `')}\``); }
+        const operator = data.operators.filter((operatorxd) => operatorxd.name.toLowerCase() === type[1].toLowerCase())[0];
+        if (!operator) { return msg.reply(`That operator was not recognised!\nTry any of these: \`${data.operators.map((operatoro) => operatoro.name).join('`, `')}\``); }
         const operatorEmbed = new MessageEmbed()
           .setFooter(this.client.setting.footer)
           .setColor(this.client.setting.colour)

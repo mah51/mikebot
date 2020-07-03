@@ -122,7 +122,7 @@ module.exports = class SlotCommand extends Command {
       + dollarSigns
       + (results.lines.slice(-1)[0].isWon ? '↙' : '⬛');
 
-    for (let i = 0; i < results.lines.length - 2; i++) {
+    for (let i = 0; i < results.lines.length - 2; i += 1) {
       embed.description += (results.lines[i].isWon ? '\n➡   ' : '\n⬛   ')
         + results.lines[i].symbols.map((s) => s.display).join(' ')
         + (results.lines[i].isWon ? '   ⬅' : '   ⬛');

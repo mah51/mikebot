@@ -45,7 +45,8 @@ module.exports = class WelcomeMessage extends Command {
   }
 
   async run(msg, args, fromPattern, something) {
-    let { message, channel } = args;
+    const { message } = args;
+    let { channel } = args;
     const enable = args.enable.toLowerCase();
     if (!this.checkPerms(msg, ['ADMINISTRATOR'], ['Admin'])) return;
     const guild = this.client.findGuild({ id: msg.guild.id });

@@ -7,5 +7,11 @@
     "class-methods-use-this": "off",
     "consistent-return": "off",
     "no-unused-expressions": "off",
+    "no-param-reassign": "off",
+    "no-restricted-globals": "off",
+    "no-return-await": "off",
+    "no-restricted-syntax": "off",
+    "radix": "off",
+    "no-await-in-loop": "off"
   }
 }

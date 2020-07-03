@@ -67,6 +67,8 @@ module.exports = class QuotePrinter extends Command {
           await msg.channel.send('*sniff* *sniff* I smell a kiddie fiddler N O N C E');
           played = true;
           break;
+        default:
+          break;
       }
     }
     switch (quote) {

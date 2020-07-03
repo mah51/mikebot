@@ -1,9 +1,9 @@
-const Command = require('../../structures/commands');
+const moment = require('moment');
 const { MessageEmbed } = require('discord.js');
 const ForntniteAPI = require('fortnite-api-io');
+const Command = require('../../structures/commands');
 
 const API = new ForntniteAPI('a87f3fb5-e6140d17-c43e0dc7-f82c93dd');
-const moment = require('moment');
 
 module.exports = class FortniteSearch extends Command {
   constructor(client) {

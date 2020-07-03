@@ -5,7 +5,7 @@ function makeid(length) {
   let result = '';
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
+  for (let i = 0; i < length; i += 1) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
@@ -128,7 +128,7 @@ class MikeBotCommand extends Command {
   makeError(msg, error) {
     const embed = new MessageEmbed()
       .setColor(this.client.setting.errorcolour)
-      .setDescription(`${msg.author}, ${error}`);
+      .setDescription(`\`❌\` ${msg.author}, ${error}`);
     return msg.say(embed).catch(console.error);
   }
 
@@ -158,6 +158,7 @@ class MikeBotCommand extends Command {
     }).join(owners.length > 2 ? ', ' : ' ') : '';
     const code = makeid(7);
     const { invite } = this.client.options;
+    // eslint-disable-next-line new-cap
     const errorData = new this.client.errorsData({
       code,
       guildID: msg.guild ? msg.guild.id : `${msg.channel.id} dm`,

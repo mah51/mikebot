@@ -90,6 +90,7 @@ module.exports = class TicTacToeCommand extends Command {
           } else {
             userTurn = !userTurn;
             lastTurnTimeout = true;
+            // eslint-disable-next-line no-continue
             continue;
           }
         }

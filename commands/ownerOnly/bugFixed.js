@@ -31,7 +31,7 @@ module.exports = class bugFixedCommand extends Command {
       .then((message) => {
         const idea = message.embeds[0].description;
         const user = message.embeds[0].fields[0].value.split('#')[0];
-        const channel = msg.guild.channels.cache.get('714639549480960021');
+        const channelxd = msg.guild.channels.cache.get('714639549480960021');
         const time = moment(msg.createdAt).format('LLLL');
         const embed = new MessageEmbed()
           .setTitle('Bug fix!')
@@ -43,7 +43,7 @@ module.exports = class bugFixedCommand extends Command {
           .addField('\u200b', '\u200b', true)
           .addField('Reported on: ', time, true)
           .addField('Fixed on: ', moment(Date.now()).format('LLLL'), true);
-        return channel.send(embed).catch(console.error);
+        return channelxd.send(embed).catch(console.error);
       }).catch(console.error);
   }
 };

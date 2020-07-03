@@ -33,7 +33,9 @@ module.exports = class StopTimer extends Command {
     timers = timers.filter((timer) => timer.message.author.id === msg.author.id);
     if (timers.length > 1) {
       msg.reply(`You have ${timers.length} timers! Which one would you like to stop?
-${timers.map((timer, index) => `${index + 1}. Has ${ms(timer.timer._idleTimeout - (Date.now() - timer.started), { long: true })} left.`).join('\n')}
+
+${// eslint-disable-next-line no-underscore-dangle
+  timers.map((timer, index) => `${index + 1}. Has ${ms(timer.timer._idleTimeout - (Date.now() - timer.started), { long: true })} left.`).join('\n')}
             `).then(async (message) => {
         const collected = await message.channel.awaitMessages((m) => m.author.id === msg.author.id, { max: 1, time: 30000, errors: ['time'] });
         if (['1', '2', '3'].includes(collected.first().content)) {

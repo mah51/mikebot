@@ -37,12 +37,12 @@ module.exports = class broadcastCommand extends Command {
   }
 
   async run(msg, { serverid, channelid, text }, fromPattern, something) {
-    const guild = msg.client.guilds.cache.find((guild) => guild.name === serverid || guild.id === serverid);
+    const guild = msg.client.guilds.cache.find((guildxd) => guildxd.name === serverid || guildxd.id === serverid);
     if (!guild) { return msg.reply('No guild with that id / name found').catch(console.error); }
     let defaultChannel = '';
     if (channelid !== '') {
       guild.channels.cache.forEach((channel) => {
-        if ((channel.name === channelid || channel.id === channelid) && channel.permissionsFor(guild.me).has('SEND_MESSAGES')) { return defaultChannel = channel; }
+        if ((channel.name === channelid || channel.id === channelid) && channel.permissionsFor(guild.me).has('SEND_MESSAGES')) { defaultChannel = channel; }
       });
     } else {
       guild.channels.cache.forEach((channel) => {

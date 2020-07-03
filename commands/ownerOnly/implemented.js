@@ -44,7 +44,7 @@ module.exports = class implementedCommand extends Command {
       .then((message) => {
         const idea = message.embeds[0].description;
         const user = message.embeds[0].fields[0].value.split('#')[0];
-        const channel = msg.guild.channels.cache.get('714639549480960021');
+        const channelxd = msg.guild.channels.cache.get('714639549480960021');
         const time = moment(msg.createdAt).format('LLLL');
         const embed = new MessageEmbed()
           .setTitle('User suggestion implemented!')
@@ -56,7 +56,7 @@ module.exports = class implementedCommand extends Command {
           .addField('\u200b', '\u200b', true)
           .addField('Suggested on: ', time, true);
         usage ? embed.addField('Command usage', usage, false) : '';
-        channel.send(embed).catch(console.error);
+        channelxd.send(embed).catch(console.error);
       }).catch(console.error);
   }
 };
