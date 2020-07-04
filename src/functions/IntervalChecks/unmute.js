@@ -8,7 +8,7 @@ module.exports = async (client) => {
     // eslint-disable-next-line no-continue
     if (!guild) continue;
     // eslint-disable-next-line no-await-in-loop
-    const member = guild.members.cache.get(memberData.id) || await guild.members.fetch(memberData.id).catch((err) => {
+    const member = guild.members.cache.get(memberData.id) || await guild.members.fetch(memberData.id).catch(() => {
       memberData.mute = {
         muted: false,
         endDate: null,
