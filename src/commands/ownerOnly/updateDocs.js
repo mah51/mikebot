@@ -23,7 +23,7 @@ module.exports = class updateDocs extends Command {
 
   async run(msg, args, fromPattern, something) {
     if (process.env.IN_PRODUCTION !== 'production') { return msg.reply('The bot isn\'t in production so that command cant be run.').catch(console.error); }
-    const filePath = path.join(__dirname, '../../../mikebot-docs/docs/commands/');
+    const filePath = path.join(__dirname, '../../../../mikebot-docs/docs/commands/');
     fs.readdir(filePath, (err, files) => {
       if (err) throw err;
 

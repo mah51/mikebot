@@ -6,6 +6,7 @@ const { Collection } = require('discord.js');
 const memberModel = require('./member');
 const guildModel = require('./guild');
 const errorModel = require('./logger');
+const userModel = require('./users');
 const MusicClient = require('./music');
 
 const levels = {
@@ -32,10 +33,12 @@ class MikeBotClient extends CommandoClient {
     super(options);
     this.guildsData = guildModel;
     this.membersData = memberModel;
+    this.usersData = userModel;
     this.errorsData = errorModel;
     this.databaseCache = {};
     this.databaseCache.guilds = new Collection();
     this.databaseCache.members = new Collection();
+    this.databaseCache.users = new Collection();
 
     this.steals = new Collection();
     this.timers = new Collection();
@@ -119,7 +122,7 @@ class MikeBotClient extends CommandoClient {
   async findMember({ id: memberID, guildID }, isLean = false) {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
-      if (this.databaseCache.members.get()) {
+      if (this.databaseCache.members.get(`${memberID}${guildID}`)) {
         resolve(isLean ? this.databaseCache.members.get(`${memberID}${guildID}`).toJSON() : this.databaseCache.members.get(`${memberID}${guildID}`));
       } else {
         let memberData = (isLean ? await this.membersData.findOne({ id: memberID, guildID }).lean() : await this.membersData.findOne({ id: memberID, guildID }));
@@ -138,6 +141,26 @@ class MikeBotClient extends CommandoClient {
           resolve((isLean ? memberData.toJSON() : memberData));
         }
         this.databaseCache.members.set(`${memberID}${guildID}`, memberData);
+      }
+    });
+  }
+
+  async findUser({ id: userID }, isLean) {
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve) => {
+      if (this.databaseCache.users.get(userID)) {
+        resolve(isLean ? this.databaseCache.users.get(userID).toJSON() : this.databaseCache.users.get(userID));
+      } else {
+        let userData = (isLean ? await this.usersData.findOne({ id: userID }).lean() : await this.usersData.findOne({ id: userID }));
+        if (userData) {
+          resolve(userData);
+        } else {
+          // eslint-disable-next-line new-cap
+          userData = new this.usersData({ id: userID });
+          await userData.save();
+          resolve((isLean ? userData.toJSON() : userData));
+        }
+        this.databaseCache.users.set(userID, userData);
       }
     });
   }

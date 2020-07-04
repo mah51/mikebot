@@ -15,7 +15,7 @@ module.exports = async (client) => {
         case: null,
       };
       memberData.save();
-      client.logger.log(`[unmute] ${memberData.id} cannot be found.`);
+      console.error(`[unmute] ${memberData.id} cannot be found.`);
     });
     // eslint-disable-next-line no-continue
     if (!member) continue;

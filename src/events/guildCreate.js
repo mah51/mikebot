@@ -5,8 +5,9 @@ module.exports = class {
     this.client = client;
   }
 
-  async run(guild) {
+  async run(unfetchedGuild) {
     let defaultChannel = '';
+    const guild = await unfetchedGuild.fetch();
     guild.channels.cache.forEach((channel) => {
       if (channel.type === 'text' && defaultChannel === '') {
         if (channel.permissionsFor(guild.me).has('SEND_MESSAGES')) {
@@ -16,7 +17,7 @@ module.exports = class {
     });
 
     const embed = new MessageEmbed()
-      .setTitle(':heart: Commands :heart:')
+      .setTitle('🔥 Commands 🔥')
       .setColor(guild.client.setting.colour)
       .setDescription('The prefix for all my commands is **.**, this can be changed with .prefix');
     // eslint-disable-next-line no-restricted-syntax
@@ -29,7 +30,8 @@ module.exports = class {
         );
       }
     }
-    guild.owner ? guild.owner.send("Thank's so much for inviting me to your server! \nI hope I don't disappoint, and if I do make sure to leave an .idea on how to improve me 😉.", {
+    const ownerMember = guild.owner ? guild.owner : await guild.members.fetch(guild.ownerID);
+    ownerMember.send("Thank's so much for inviting me to your server! \nI hope I don't disappoint, and if I do make sure to leave an .idea on how to improve me 😉.", {
       embed: {
         color: guild.client.setting.colour,
         title: 'Getting started with MikeBot',
@@ -63,10 +65,10 @@ module.exports = class {
         },
         timestamp: Date.now(),
       },
-    }).catch(console.error) : console.log('Joined guild but couldn\'t DM owner.');
+    }).catch(console.error);
 
-    defaultChannel.send(`Hello, my name is MikeBot! Here is a list of all my commands, if you need more information about each command do ${guild.commandPrefix}help <command name> or visit https://mikebot.xyz 😉
+    defaultChannel ? defaultChannel.send(`Hello, my name is MikeBot! Here is a list of all my commands, if you need more information about each command do ${guild.commandPrefix}help <command name> or visit https://mikebot.xyz 😉
 If you find any bugs or think of a sicc idea use .idea or .bug to send them to the support server! 🎉
-If you like the bot, feel free to vote here: https://top.gg/bot/698459684205494353, it would be greatly appreciated! 😍`, { embed }).catch(console.error);
+If you like the bot, feel free to vote here: https://top.gg/bot/698459684205494353, it would be greatly appreciated + you get some pretty cool perks with \`.vote\`! 😍`, { embed }).catch(console.error) : console.log('joined guild but could not message server');
   }
 };
