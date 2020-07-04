@@ -25,10 +25,15 @@ module.exports = class FlexCommand extends Command {
 
       ],
       args: [
-
+        {
+          key: 'member',
+          label: 'member',
+          prompt: 'Would you like to flex on someone?',
+          type: 'member',
+        },
       ],
       throttling: {
-        usages: 1,
+        usages: 2,
         duration: 300,
       },
       guildOnly: true,
@@ -45,7 +50,11 @@ module.exports = class FlexCommand extends Command {
         .setDescription(`**${compliments[Math.floor(Math.random() * compliments.length)].replace('{{member}}', msg.member)}**`)
         .setTitle('F L E X I N G')
         .setFooter('And yes that is the supreme red on the side = le big flex');
-
+      if (args.member) {
+        embed.setAuthor(`${msg.member.displayName} is flexing on ${args.member.displayName}`)
+          .setDescription(`${msg.member} wanted you to know how inferior you are, also have a yo momma joke on the house.`);
+        await this.client.registry.commands.get('yo-momma').run(msg, args, fromPattern, result);
+      }
       return msg.say(embed);
     } catch (err) {
       console.error(err);
