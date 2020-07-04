@@ -51,7 +51,7 @@ module.exports = class warnCommand extends Command {
       reason: reason || 'No reason provided',
     };
 
-    const memberData = this.client.findMember({ id: member.id, guildID: msg.guild.id });
+    const memberData = await this.client.findMember({ id: member.id, guildID: msg.guild.id });
     const warnCount = memberData.moderation.filter((thing) => thing.type === 'warn').length;
     memberData.moderation.push(caseInfo);
     memberData.markModified('moderation');

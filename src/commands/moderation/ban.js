@@ -66,7 +66,7 @@ module.exports = class BanCommand extends Command {
       reason,
     };
 
-    const memberData = this.client.findMember({ id: member.id, guildID: msg.guild.id });
+    const memberData = await this.client.findMember({ id: member.id, guildID: msg.guild.id });
     memberData.moderation.push(caseInfo);
     memberData.markModified('moderation');
     memberData.markModified('mute');
