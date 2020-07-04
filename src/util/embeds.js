@@ -8,6 +8,7 @@ class Embeds {
       error: '#FF5251',
       warn: '#FFE423',
       success: '#4BF08C',
+      flex: '#ed1c24',
     };
   }
 

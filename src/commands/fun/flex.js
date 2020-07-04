@@ -37,12 +37,13 @@ module.exports = class FlexCommand extends Command {
 
   async run(msg, args, fromPattern, result) {
     try {
-      const userData = await this.client.findUser({ id: msg.author.id });
+      const userData = await this.client.findUser({ id: msg.author.id }, true);
       if (userData.votes.count === 0) { return this.makeError(msg, 'You haven\'t voted yet! to vote go to [top.gg](https://top.gg/bot/698459684205494353) to vote for MikeBot and use the `.vote` command to get some perks! ❤'); }
-      if (Date.now() - userData.votes.cooldown > 43200000) { return this.makeError(msg, 'It has been longer 12 hours since you last voted! to regain access to this command go and vote at [top.gg](https://top.gg/bot/698459684205494353)! and do `.vote` :P.'); }
-      const embed = this.client.embeds.create('epic')
+      if (Date.now() - userData.votes.cooldown > 43200000) { return this.makeError(msg, 'It has been longer than 12 hours since you last voted! to regain access to this command go and vote at [top.gg](https://top.gg/bot/698459684205494353)! and do `.vote` :P.'); }
+      const embed = this.client.embeds.create('flex')
         .setAuthor(msg.member.displayName, msg.author.displayAvatarURL({ size: 256 }))
-        .setDescription(`**${compliments[Math.floor(Math.random() * compliments.length)].replace('{{member}}', msg.member)}**`);
+        .setDescription(`**${compliments[Math.floor(Math.random() * compliments.length)].replace('{{member}}', msg.member)}**`)
+        .setFooter('And yes that is the supreme red on the side.');
 
       return msg.say(embed);
     } catch (err) {
