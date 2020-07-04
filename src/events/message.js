@@ -19,12 +19,26 @@ module.exports = class {
         return;
       }
       const memberData = await msg.client.findMember({ id: msg.author.id, guildID: msg.guild.id }, false);
-      if (memberData.cooldowns.message > Date.now()) { return; }
-      memberData.balance += 5;
-      memberData.messageCount += 1;
-      memberData.xp += Math.round((Math.random() + 1) * 5);
-      memberData.cooldowns.message = Date.now() + 60000;
-      memberData.markModified('cooldowns.message');
+      if (msg.content.startsWith('.') && this.client.registry.commands.get(msg.content.split(' ')[0].slice(1))) {
+        if (!memberData.cooldowns.commands) {
+          memberData.cooldowns.commands = 0;
+        }
+        if (memberData.cooldowns.commands < Date.now()) {
+          memberData.balance += Math.ceil(Math.random() * 7);
+          memberData.xp += Math.round((Math.random() + 1) * 5);
+          memberData.cooldowns.commands = Date.now() + 60000;
+          memberData.markModified('cooldowns.commands');
+        }
+      }
+
+      if (memberData.cooldowns.message) {
+        memberData.balance += 5;
+        memberData.messageCount += 1;
+        memberData.xp += Math.round((Math.random() + 1) * 5);
+        memberData.cooldowns.message = Date.now() + 60000;
+        memberData.markModified('cooldowns.message');
+      }
+
       await memberData.save();
     } catch (err) {
       console.error(err);
