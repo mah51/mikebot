@@ -149,7 +149,7 @@ class MikeBotClient extends CommandoClient {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
       if (this.databaseCache.users.get(userID)) {
-        resolve(isLean ? this.databaseCache.users.get(userID).toJSON() : this.databaseCache.users.get(userID));
+        resolve(this.databaseCache.users.get(userID));
       } else {
         let userData = (isLean ? await this.usersData.findOne({ id: userID }).lean() : await this.usersData.findOne({ id: userID }));
         if (userData) {

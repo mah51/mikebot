@@ -10,5 +10,4 @@ module.exports = mongoose.model('User', new mongoose.Schema({
       votes: [],
     },
   },
-  xp: { type: Number, default: 0 },
 }));

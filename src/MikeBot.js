@@ -32,7 +32,8 @@ if (process.env.DBL_TOKEN) {
   client.dbl.on('error', (e) => {
     client.logger.error(`DBL ERROR ${e}`);
   });
-}
+  client.logger.info('Loaded DBL instance');
+} else { client.logger.warn('DBL was not loaded: No token provided'); }
 // Login to client
 client.login(process.env.BOT_TOKEN).catch(console.error);
 

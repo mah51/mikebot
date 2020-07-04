@@ -35,6 +35,6 @@ async function setPres(client, dbl) {
     },
   }).catch(console.error);
   client.logger.warn('Sending server count');
-  if (dbl) { await dbl.postStats(client.guilds.cache.size).catch(console.error); }
+  if (dbl && process.env.IN_PRODUCTION === 'production') { await dbl.postStats(client.guilds.cache.size).catch(console.error); }
 }
 module.exports = setPres;
