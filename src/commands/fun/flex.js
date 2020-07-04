@@ -47,12 +47,12 @@ module.exports = class FlexCommand extends Command {
       if (userData.votes.count === 0) { return this.makeError(msg, 'You haven\'t voted yet! to vote go to [top.gg](https://top.gg/bot/698459684205494353) to vote for MikeBot and use the `.vote` command to get some perks! ❤'); }
       if (Date.now() - userData.votes.cooldown > 43200000) { return this.makeError(msg, 'It has been longer than 12 hours since you last voted! to regain access to this command go and vote at [top.gg](https://top.gg/bot/698459684205494353)! and do `.vote` :P.'); }
       const embed = this.client.embeds.create('flex')
-        .setAuthor(`${msg.member.displayName} is absolutely flexing on all you losers`, msg.author.displayAvatarURL({ size: 256 }))
+        .setAuthor(args.member ? `${msg.member.displayName} is absolutely flexing on all you losers` : `${msg.member.displayName} is flexing on ${args.member.displayName}`, msg.author.displayAvatarURL({ size: 256 }))
         .setDescription(`**${compliments[Math.floor(Math.random() * compliments.length)].replace('{{member}}', msg.member)}**`)
         .setTitle('F L E X I N G')
         .setFooter('And yes that is the supreme red on the side = le big flex');
       if (args.member) {
-        embed.setAuthor(`${msg.member.displayName} is flexing on ${args.member.displayName}`)
+        embed
           .setDescription(`${msg.member} wanted you to know how inferior you are, also have a yo momma joke on the house.`);
         args.user = args.member;
         await this.client.registry.commands.get('yo-momma').run(msg, args, fromPattern, result);
