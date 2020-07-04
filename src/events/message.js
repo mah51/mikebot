@@ -5,6 +5,10 @@ module.exports = class {
 
   async run(msg) {
     if (msg.author.bot) {
+      if (msg.author.id === '723153103473344512' && process.env.IN_PRODUCTION === 'dev') {
+        msg.author.bot = false;
+        this.client.emit('message', msg);
+      }
       return;
     }
     if (!msg.guild) {

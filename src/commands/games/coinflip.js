@@ -39,7 +39,7 @@ module.exports = class CoinFlipCommand extends Command {
 
   async run(msg, { member, bet }, fromPattern, something) {
     const current = this.client.games.get(msg.channel.id);
-    if (current) return msg.reply(`Please wait until the current game of \`${current.name}\` is finished.`);
+    if (current) return msg.reply(`There is already a game of \`${current.name}\` is being played in this channel!`);
     try {
       const memberInfo = await this.client.findMember({ id: member.id, guildID: msg.guild.id });
       const authorInfo = await this.client.findMember({ id: msg.member.id, guildID: msg.guild.id });

@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js');
 const Command = require('../../structures/commands');
 
 module.exports = class PayCommand extends Command {

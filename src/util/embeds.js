@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 class Embeds {
   constructor(client) {
     this.client = client;
-    this.colors = {
+    this.colours = {
       general: '#59FF92',
       error: '#FF5251',
       warn: '#FFE423',
@@ -12,22 +12,22 @@ class Embeds {
   }
 
   create(colortype) {
-    let color = '';
+    let colour = '';
     const embed = new MessageEmbed()
-      .setFooter('Powered by MikeBot', this.client.user.displayAvatarURL())
+      .setFooter('Powered by MikeBot', this.client.user.displayAvatarURL({ size: 256 }))
       .setTimestamp();
     if (colortype) {
-      if (this.colors[colortype]) color = this.colors[colortype];
+      if (this.colours[colortype]) colour = this.colours[colortype];
       else throw Error('Invalid color - check utils/embeds');
     } else {
-      color = this.colors.general;
+      colour = this.colours.general;
     }
-    embed.setColor(color);
+    embed.setColor(colour);
     return embed;
   }
 
-  color(colortype) {
-    return this.colors[colortype];
+  colour(colortype) {
+    return this.colours[colortype];
   }
 }
 

@@ -24,7 +24,7 @@ module.exports = class RussianRouletteCommand extends Command {
           label: 'bet',
           prompt: 'Would you like to add a bet to the game?',
           type: 'integer',
-          validate: (query) => query > 0,
+          validate: (query) => query > -1,
           default: 0,
         },
       ],
@@ -32,15 +32,21 @@ module.exports = class RussianRouletteCommand extends Command {
   }
 
   async run(msg, { opponent, bet }, fromPattern, result) {
-    if (opponent.id === msg.author.id) return msg.reply('Hmm... That could only end badly. Try choosing someone that isn\'t yourself! 😯');
+    if (opponent.id === msg.author.id) return this.makeError(msg, 'Hmm... That could only end badly. Try choosing someone that isn\'t yourself! 😯');
     const current = this.client.games.get(msg.channel.id);
-    if (current) return msg.reply(`Please wait until the current game of \`${current.name}\` is finished.`);
+    if (current) return this.makeError(msg, `There is already a game of \`${current.name}\` is being played in this channel!`);
+    const userInfo = await this.client.findMember({ id: msg.author.id, guildID: msg.guild.id });
     this.client.games.set(msg.channel.id, { name: this.name, players: [msg.author.username, opponent.username] });
+    if (userInfo.balance - bet < 0) { return this.makeError(msg, 'You don\'t have that much money!'); }
     try {
       if (opponent.bot && bet > 0) {
         this.makeError(msg, 'You can\'t make a bet with a bot');
+        return this.client.games.delete(msg.channel.id);
       }
+      let versusInfo;
       if (!opponent.bot) {
+        versusInfo = await this.client.findMember({ id: opponent.id, guildID: msg.guild.id });
+        if (versusInfo.balance - bet < 0) { return this.makeError(msg, `${opponent} does not have enough money!`); }
         await msg.say(`${opponent}, you have been invited to a game of russian roulette! There is $${bet} at stake!\nReply with yes to play.`);
         const verification = await verify(msg.channel, opponent);
         if (!verification) {
@@ -77,9 +83,7 @@ module.exports = class RussianRouletteCommand extends Command {
         }
       }
       this.client.games.delete(msg.channel.id);
-      if (bet > 0) {
-        const userInfo = await this.client.findMember({ id: msg.author.id, guildID: msg.guild.id });
-        const versusInfo = await this.client.findMember({ id: opponent.id, guildID: msg.guild.id });
+      if (bet > 0 && opponent) {
         if (winner.id === msg.author.id) {
           versusInfo.balance -= bet;
           userInfo.balance += bet;

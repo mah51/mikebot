@@ -12,6 +12,7 @@
     "no-return-await": "off",
     "no-restricted-syntax": "off",
     "radix": "off",
-    "no-await-in-loop": "off"
+    "no-await-in-loop": "off",
+    "no-underscore-dangle": "off"
   }
 }

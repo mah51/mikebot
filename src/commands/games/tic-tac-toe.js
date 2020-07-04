@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js');
 const Command = require('../../structures/commands');
 const { verify } = require('../../util/util');
 
@@ -36,7 +35,7 @@ module.exports = class TicTacToeCommand extends Command {
     if (versus.bot) return this.makeError(msg, '🤖 Bot detected... 🤖, choose a human! *loner*');
     if (versus.id === msg.author.id) return this.makeError(msg, 'Get some friends 😎 (insert oof), you can\'t play against yourself');
     const current = this.client.games.get(msg.channel.id);
-    if (current) return msg.reply(`Please wait until the current game of \`${current.name}\` is finished.`);
+    if (current) return this.makeError(msg, `There is already a game of \`${current.name}\` is being played in this channel!`);
     this.client.games.set(msg.channel.id, { name: this.name, players: [msg.author.username, versus.username] });
     try {
       await msg.say(`${versus}, you have been invited to a game of tic tac toe! There is $${bet} at stake!\nReply with yes to play.`);

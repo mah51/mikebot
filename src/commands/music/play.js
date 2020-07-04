@@ -26,7 +26,7 @@ module.exports = class MusicPlayCommand extends Command {
 
   async run(msg, args, fromPattern, result) {
     if (!msg.member.voice.channel) { return msg.reply({ embed: { description: 'You need to be in a voice channel to use this command.', color: this.client.setting.colour } }); }
-    if (!this.checkChannelPerms(msg, msg.member.voice.channel, msg.member, ['CONNECT', 'SPEAK'])) { return; }
+    if (!msg.member.voice.channel.permissionsFor(msg.guild.me).has(['CONNECT', 'SPEAK'])) { return this.makeError(msg, 'I don\'t have permission to join that voice channel!'); }
     const { query } = args;
     await this.client.music.playFunction(msg, query);
   }

@@ -34,7 +34,6 @@ module.exports = class ClearMemberInfo extends Command {
     if (!memberInfo || memberInfo.balance === 0) { return msg.reply('That user does not have any balance info.').catch(console.error); }
     msg.reply(`Balance was reset for ${member.displayName}, they had $${memberInfo.balance}`).catch(console.error);
     memberInfo.balance = 0;
-    memberInfo.markModified('balance');
     await memberInfo.save();
   }
 };

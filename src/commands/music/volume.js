@@ -19,10 +19,7 @@ module.exports = class MusicVolumeCommand extends Command {
           key: 'volume',
           prompt: 'Volume 0-200?',
           type: 'integer',
-          validate: (volume) => {
-            if (volume <= 200 && volume >= 0) return true;
-            return false;
-          },
+          validate: (volume) => volume <= 200 && volume >= 0,
         },
       ],
     });

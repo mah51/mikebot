@@ -121,7 +121,7 @@ class MikeBotCommand extends Command {
   makeSuccess(msg, success) {
     const embed = new MessageEmbed()
       .setColor(this.client.setting.successcolour)
-      .setDescription(success);
+      .setDescription(`\`✔\` ${success}`);
     return msg.reply(embed).catch(console.error);
   }
 
@@ -148,7 +148,7 @@ class MikeBotCommand extends Command {
     return false;
   }
 
-  onError(err, msg, args, fromPattern, result) {
+  onError(err, msg) {
     this.errorCount += 1;
     this.errors.push({ author: msg.author.username, content: msg.content, error: err });
     const { owners } = this.client;
