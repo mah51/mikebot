@@ -18,15 +18,17 @@ async function setPres(client, dbl) {
   });
   const cmdCount = client.registry.commands
     .filter((command) => !command.ownerOnly && !command.hidden).size;
-  db.collection('test').doc('testid').set({
-    commands: cmdCount,
-    guilds: guildCount,
-    guildList: guildArray,
-    members: memberCount,
-  }).then(() => {
-    client.logger.info(`Sent info to database:${cmdCount}, ${guildCount}, ${memberCount}`);
-  })
-    .catch((err) => client.logger.error(`Firebase error: ${err}`));
+  if (process.env.IN_PRODUCTION === 'production') {
+    db.collection('test').doc('testid').set({
+      commands: cmdCount,
+      guilds: guildCount,
+      guildList: guildArray,
+      members: memberCount,
+    }).then(() => {
+      client.logger.info(`Sent info to database:${cmdCount}, ${guildCount}, ${memberCount}`);
+    })
+      .catch((err) => client.logger.error(`Firebase error: ${err}`));
+  }
   client.user.setPresence({
     status: 'online',
     activity: {
@@ -34,7 +36,7 @@ async function setPres(client, dbl) {
       type: 'LISTENING',
     },
   }).catch(console.error);
-  client.logger.warn('Sending server count');
-  if (dbl && process.env.IN_PRODUCTION === 'production') { await dbl.postStats(client.guilds.cache.size).catch(console.error); }
+
+  if (dbl && process.env.IN_PRODUCTION === 'production') { client.logger.warn('Sending server count'); await dbl.postStats(client.guilds.cache.size).catch(console.error); }
 }
 module.exports = setPres;

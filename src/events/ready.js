@@ -50,13 +50,11 @@ module.exports = class {
         type: 'LISTENING',
       },
     }).catch(console.error);
-    if (process.env.IN_PRODUCTION === 'production') {
-      setTimeout(async () => {
-        await setPres(this.client, this.client.dbl);
-        await setInterval(async () => {
-          await setPres(this.client, this.client.dbl);
-        }, 1800000);
-      }, 60000);
-    }
+    setTimeout(async () => {
+    await setPres(this.client, this.client.dbl);
+    await setInterval(async () => {
+      await setPres(this.client, this.client.dbl);
+    }, 1800000);
+    }, 60000);
   }
 };
