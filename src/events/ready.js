@@ -51,10 +51,10 @@ module.exports = class {
       },
     }).catch(console.error);
     setTimeout(async () => {
-    await setPres(this.client, this.client.dbl);
-    await setInterval(async () => {
       await setPres(this.client, this.client.dbl);
-    }, 1800000);
+      await setInterval(async () => {
+        await setPres(this.client, this.client.dbl);
+      }, 1800000);
     }, 60000);
   }
 };
