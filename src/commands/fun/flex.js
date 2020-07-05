@@ -55,9 +55,12 @@ module.exports = class FlexCommand extends Command {
         embed
           .setDescription(`${msg.member} wanted you to know how inferior you are, also have a yo momma joke on the house.`);
         args.user = args.member;
+      }
+      await msg.say(embed);
+      if (args.member) {
         await this.client.registry.commands.get('yo-momma').run(msg, args, fromPattern, result);
       }
-      return msg.say(embed);
+      return msg;
     } catch (err) {
       console.error(err);
       await this.onError(err, msg);

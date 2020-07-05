@@ -56,7 +56,7 @@ module.exports = class StealCommand extends Command {
         await this.client.steals.set(msg.guild.id + msg.member.id, true);
         await message.react('⚔️');
         const filter = (reaction, user) => user.id === member.id;
-        message.awaitReactions(filter, { time: time[risk.toLowerCase()][0] * 1000 })
+        message.awaitReactions(filter, { time: time[risk.toLowerCase()][0] * 1000, max: 1 })
           .then(async (collected) => {
             const embed = new MessageEmbed()
               .setFooter(this.client.setting.footer)
