@@ -142,6 +142,7 @@ class MikeBotClient extends CommandoClient {
           }
           resolve((isLean ? memberData.toJSON() : memberData));
         }
+        if (isLean) return;
         this.databaseCache.members.set(`${memberID}${guildID}`, memberData);
       }
     });
@@ -162,6 +163,7 @@ class MikeBotClient extends CommandoClient {
           await userData.save();
           resolve((isLean ? userData.toJSON() : userData));
         }
+        if (isLean) return;
         this.databaseCache.users.set(userID, userData);
       }
     });

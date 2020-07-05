@@ -18,7 +18,7 @@ module.exports = class {
       if (msg.client.provider.get(msg.guild.id, 'grp-currency') === false) {
         return;
       }
-      const memberData = await msg.client.findMember({ id: msg.author.id, guildID: msg.guild.id });
+      const memberData = await this.client.findMember({ id: msg.author.id, guildID: msg.guild.id });
       if (msg.content.startsWith('.') && this.client.registry.commands.get(msg.content.split(' ')[0].slice(1))) {
         if (!memberData.cooldowns.commands) {
           memberData.cooldowns.commands = 0;
