@@ -28,9 +28,10 @@ class MainRoute {
 
     // Launches the webserver on port 80
     function launchServer() {
+      // eslint-disable-next-line global-require
       const http = require('http');
-      http.createServer(app).listen(80);
-      console.log(`Server started on port 80 pid: ${process.pid}`);
+      http.createServer(app).listen(3292);
+      console.log(`Server started on port 3292 pid: ${process.pid}`);
     }
 
     launchServer();
