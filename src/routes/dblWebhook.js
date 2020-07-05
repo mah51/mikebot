@@ -21,7 +21,7 @@ class MainRoute {
     app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 
     // DBL webhooks
-    app.post('/dblwebhook', async (req, res) => {
+    app.post('/', async (req, res) => {
       if (req.headers.authorization) {
         if (req.headers.authorization === '0ef46961-03c6-493a-9eee-c0d13ec07269') {
           // eslint-disable-next-line no-use-before-define
