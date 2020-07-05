@@ -27,19 +27,18 @@ module.exports = class {
           memberData.balance += Math.ceil(Math.random() * 7);
           memberData.xp += Math.round((Math.random() + 1) * 5);
           memberData.cooldowns.commands = Date.now() + 60000;
-          memberData.markModified('cooldowns.commands');
         }
       }
-
       if (memberData.cooldowns.message) {
         memberData.balance += 5;
         memberData.messageCount += 1;
         memberData.xp += Math.round((Math.random() + 1) * 5);
         memberData.cooldowns.message = Date.now() + 60000;
-        memberData.markModified('cooldowns.message');
       }
-
-      await memberData.save();
+      memberData.markModified('cooldowns');
+      await memberData.save((err) => {
+        if (err) { console.log('error saving memberData in message.js'); }
+      });
     } catch (err) {
       console.error(err);
     }
