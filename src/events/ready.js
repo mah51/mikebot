@@ -29,6 +29,7 @@ module.exports = class {
   }
 
   async run() {
+    this.client.route.init();
     this.client.registry.groups.forEach((group) => {
       // eslint-disable-next-line no-param-reassign
       group.description = descriptions[group.id];

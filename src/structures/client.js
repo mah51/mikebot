@@ -31,6 +31,7 @@ const levels = {
 class MikeBotClient extends CommandoClient {
   constructor(options) {
     super(options);
+    this.route = new (require('../routes/dblWebhook'))(this);
     this.guildsData = guildModel;
     this.membersData = memberModel;
     this.usersData = userModel;

@@ -21,7 +21,7 @@ module.exports = async (client) => {
       // eslint-disable-next-line no-await-in-loop
       const channel = guild.channels.cache.get(reminder.channel) || await guild.channels.fetch(reminder.channel);
       memberData.reminders.splice(memberData.reminders.indexOf(reminder));
-      memberData.markModified('reminders');
+      memberData.markModified('reminders').catch((err) => console.log(`Error in reminder check.js on mark modified: ${err}`));
       // eslint-disable-next-line no-await-in-loop
       await memberData.save();
       if (!channel) {

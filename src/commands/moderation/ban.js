@@ -68,8 +68,7 @@ module.exports = class BanCommand extends Command {
 
     const memberData = await this.client.findMember({ id: member.id, guildID: msg.guild.id });
     memberData.moderation.push(caseInfo);
-    memberData.markModified('moderation');
-    memberData.markModified('mute');
+    memberData.markModified('moderation').catch((err) => console.log(`Error in ban command.js on mark modified: ${err}`));
     await data.guild.save();
     await memberData.save();
 

@@ -111,8 +111,8 @@ module.exports = class mute extends Command {
     memberData.mute.endDate = Date.now() + ms(time);
     memberData.mute.case = data.guild.casesCount;
     memberData.moderation.push(caseInfo);
-    memberData.markModified('moderation');
-    memberData.markModified('mute');
+    memberData.markModified('moderation').catch((err) => console.log(`Error in mute command.js on mark modified: ${err}`));
+    memberData.markModified('mute').catch((err) => console.log(`Error in mute command.js on mark modified: ${err}`));
     await data.guild.save();
     await memberData.save();
     member.createDM().then((channel) => {

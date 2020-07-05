@@ -57,7 +57,7 @@ module.exports = class Reminder extends Command {
       time: date.valueOf(),
     };
     data.memberData.reminders.push(reminder);
-    data.memberData.markModified('reminders');
+    data.memberData.markModified('reminders').catch((err) => console.log(`Error in reminder command.js on mark modified: ${err}`));
     await data.memberData.save();
     const embed = new MessageEmbed()
       .setFooter(this.client.setting.footer)

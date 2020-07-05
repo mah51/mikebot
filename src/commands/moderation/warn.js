@@ -54,7 +54,7 @@ module.exports = class warnCommand extends Command {
     const memberData = await this.client.findMember({ id: member.id, guildID: msg.guild.id });
     const warnCount = memberData.moderation.filter((thing) => thing.type === 'warn').length;
     memberData.moderation.push(caseInfo);
-    memberData.markModified('moderation');
+    memberData.markModified('moderation').catch((err) => console.log(`Error in warn command.js on mark modified: ${err}`));
     await data.guild.save();
     await memberData.save();
     const memberEmbed = new MessageEmbed()

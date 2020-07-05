@@ -26,7 +26,7 @@ module.exports = class SaveLink extends Command {
     const memberData = await this.client.findMember({ id: member.id, guildID: msg.guild.id });
     if (!memberData || !memberData.joinSound.url) { return this.makeError(msg, 'Member doesn\'t have a link set up!').catch(console.error); }
     memberData.joinSound.url = null;
-    memberData.markModified('joinSound.url');
+    memberData.markModified('joinSound.url').catch((err) => console.log(`Error in forceRemove.js on mark modified: ${err}`));
     await memberData.save();
     return msg;
   }

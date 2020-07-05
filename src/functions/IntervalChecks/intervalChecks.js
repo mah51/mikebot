@@ -4,8 +4,9 @@ const voiceCheck = require('./voiceCheck');
 
 module.exports = (client) => {
   setInterval(async () => {
+    if (process.env.DEBUG === 'on') console.log('Doing checks');
     await unmuteCheck(client);
     await reminderCheck(client);
     await voiceCheck(client);
-  }, 10000);
+  }, 20000);
 };
