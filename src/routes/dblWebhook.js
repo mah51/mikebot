@@ -6,16 +6,26 @@ class MainRoute {
   }
 
   init() {
-    const app = express();
+    // Require express and body-parser
+    // eslint-disable-next-line global-require
+    const bodyParser = require('body-parser');
 
-    app.use(express.json({ extended: false }));
+    // Initialize express and define a port
+    const app = express();
+    const PORT = 3292;
+
+    // Tell express to use body-parser's JSON parsing
+    app.use(bodyParser.json());
+
+    // Start express on the defined port
+    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 
     // DBL webhooks
     app.post('/dblwebhook', async (req, res) => {
       if (req.headers.authorization) {
         if (req.headers.authorization === '0ef46961-03c6-493a-9eee-c0d13ec07269') {
           // eslint-disable-next-line no-use-before-define
-          await this.client.emit('dblWebhook', req.data);
+          await this.client.emit('dblWebhook', req.body);
           res.send({ status: 200 });
         } else {
           console.log('auth error');
@@ -25,16 +35,6 @@ class MainRoute {
         res.send({ status: 403, error: 'There was no auth header in the webhook' });
       }
     });
-
-    // Launches the webserver on port 80
-    function launchServer() {
-      // eslint-disable-next-line global-require
-      const http = require('http');
-      http.createServer(app).listen(3292);
-      console.log(`Server started on port 3292 pid: ${process.pid}`);
-    }
-
-    launchServer();
   }
 }
 module.exports = MainRoute;

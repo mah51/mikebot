@@ -26,7 +26,6 @@ const client = new CommandoClient({
 
 if (process.env.DBL_TOKEN) {
   client.dbl = new DBL(process.env.DBL_TOKEN);
-
   client.dbl.on('posted', () => {
     client.logger.info('Server count posted!');
   });

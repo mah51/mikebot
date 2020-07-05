@@ -46,7 +46,11 @@ module.exports = class SaveLink extends Command {
     const videoID = await youtubeParser(link);
     if (!videoID) { return this.makeError(msg, 'That youtube link wasn not valid!').catch(console.error); }
     memberData.joinSound.url = videoID;
-    memberData.markModified('joinSound.url').catch((err) => console.log(`Error in savelink.js on mark modified: ${err}`));
+    try {
+      memberData.markModified('joinSound.url');
+    } catch (err) {
+      console.log(`Error in savelink.js on mark modified: ${err}`);
+    }
     await memberData.save();
     const embed = this.client.embeds.create()
       .setAuthor(`${msg.member.displayName}'s link saved successfully!`, msg.author.displayAvatarURL())

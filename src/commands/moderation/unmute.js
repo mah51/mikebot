@@ -41,7 +41,12 @@ module.exports = class unMute extends Command {
 
     if (memberData.mute.muted) {
       memberData.mute.endDate = Date.now();
-      memberData.markModified('mute').catch((err) => console.log(`Error in unmute command.js on mark modified: ${err}`));
+      try {
+        memberData.markModified('mute');
+      } catch (err) {
+        console.log(`Error in unmute command.js on mark modified: ${err}`);
+      }
+
       memberData.save();
       msg.say(embed).catch(console.error);
     } else {

@@ -35,7 +35,12 @@ module.exports = class {
         memberData.xp += Math.round((Math.random() + 1) * 5);
         memberData.cooldowns.message = Date.now() + 60000;
       }
-      memberData.markModified('cooldowns').catch((err) => console.log(`Error in message.js on mark modified: ${err}`));
+      try {
+        memberData.markModified('cooldowns');
+      } catch (err) {
+        console.log(`Error in message.js on mark modified: ${err}`);
+      }
+
       await memberData.save((err) => {
         if (err) { console.log('error saving memberData in message.js'); }
       });
