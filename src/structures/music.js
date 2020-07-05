@@ -235,24 +235,18 @@ module.exports = class MusicClient {
       key: this.apiKey,
     });
     if (!body.items.length || error) throw new Error(`No results for query: "${searchString}".`);
-    const songs = [];
-    for (const info of body.items) {
-      const song = MusicClient.song();
-      song.id = info.id.videoId;
-      song.title = info.snippet.title;
-      song.url = `https://www.youtube.com/watch?v=${info.id.videoId}`;
-      song.uploader = info.snippet.channelTitle;
-      song.uploaderURL = `https://www.youtube.com/channel/${info.snippet.channelId}`;
-      song.duration = moment
-        // eslint-disable-next-line no-await-in-loop
-        .duration(parseInt((await ytdl.getBasicInfo(song.url)).length_seconds), 'seconds')
-        .format();
-      songs.push(song);
-    }
-    if (this.searchFiltersEnabled && this.searchFilters && songs.length > 0) {
-      return [await this.filterSong(songs, searchString)];
-    }
-    return [songs[0]];
+    const info = body.items[0];
+    const song = MusicClient.song();
+    song.id = info.id.videoId;
+    song.title = info.snippet.title;
+    song.url = `https://www.youtube.com/watch?v=${info.id.videoId}`;
+    song.uploader = info.snippet.channelTitle;
+    song.uploaderURL = `https://www.youtube.com/channel/${info.snippet.channelId}`;
+    song.duration = moment
+      // eslint-disable-next-line no-await-in-loop
+      .duration(parseInt((await ytdl.getBasicInfo(song.url)).length_seconds), 'seconds')
+      .format();
+    return [song];
   }
 
   async search(msg, query) {
@@ -415,7 +409,7 @@ module.exports = class MusicClient {
       } else {
         await this.note(msg, `Added to song queue: [${songs[0].title}](${songs[0].url})`, MusicClient.noteType.MUSIC);
       }
-      if (!guild.audioDispatcher) this.playNext(guild, msg);
+      if (!guild.audioDispatcher) await this.playNext(guild, msg);
     } catch (error) {
       await this.note(msg, error, MusicClient.noteType.ERROR);
     }
