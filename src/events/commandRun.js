@@ -5,6 +5,7 @@ module.exports = class {
 
   async run(cmd, promise, msg, args, fromPattern, result) {
     try {
+      console.log(`Running cmd: ${cmd.name}`);
       if (cmd.uses !== undefined) {
         cmd.uses += 1;
       }
