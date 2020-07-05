@@ -29,7 +29,7 @@ module.exports = class {
           memberData.cooldowns.commands = Date.now() + 60000;
         }
       }
-      if (memberData.cooldowns.message) {
+      if (memberData.cooldowns.message < Date.now()) {
         memberData.balance += 5;
         memberData.messageCount += 1;
         memberData.xp += Math.round((Math.random() + 1) * 5);
