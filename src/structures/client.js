@@ -33,6 +33,7 @@ class MikeBotClient extends CommandoClient {
     super(options);
     // eslint-disable-next-line global-require
     this.route = new (require('../routes/dblWebhook'))(this);
+    this.guildsData = guildModel;
     this.membersData = memberModel;
     this.usersData = userModel;
     this.errorsData = errorModel;
