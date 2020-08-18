@@ -66,8 +66,7 @@ module.exports = class MusicClient {
         volume: guildData.plugins.music.volume || this.defVolume,
       });
     }
-    const guild = this.guilds.get(guildId);
-    return guild;
+    return this.guilds.get(guildId);
   }
 
   getCurrentSong(guild) {
@@ -363,7 +362,7 @@ module.exports = class MusicClient {
   async pageBuilder(title, list, pageLimit, isField, extraTitle, extraText) {
     const pages = [];
     if (list.length < 1) {
-      const pageEmbed = this.pageEmbed(title, isField, extraTitle, extraText);
+      const pageEmbed = await this.pageEmbed(title, isField, extraTitle, extraText);
       pageEmbed.addContent(title, `${title} is empty.`);
       pages.push(pageEmbed);
     }
@@ -566,7 +565,7 @@ module.exports = class MusicClient {
     if (nowPlaying && guild.audioDispatcher) {
       nowPlayingText = `[${nowPlaying.title}](${nowPlaying.url})\n*Requested by: <@${nowPlaying.requester}>*\n`;
     }
-    const pages = this.pageBuilder('Queue', guild.queue, 5, true, 'Now Playing', nowPlayingText);
+    const pages = await this.pageBuilder('Queue', guild.queue, 5, true, 'Now Playing', nowPlayingText);
     await paginationEmbed(msg, pages);
   }
 

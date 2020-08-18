@@ -12,6 +12,7 @@ const readdir = util.promisify(fs.readdir);
 const CommandoClient = require('./structures/client');
 const MongoDBProvider = require('./functions/other/mongo-provider.js');
 
+process.setMaxListeners(0);
 // Initialise client
 const client = new CommandoClient({
   commandPrefix: '.',
@@ -43,7 +44,7 @@ client
     MongoClient.connect(process.env.DB_CONNECTION, { useUnifiedTopology: true }).then((mongoClient) => new MongoDBProvider(mongoClient, 'Mike-Bot-Provider-Settings')),
   ).catch(console.error);
 
-mongoose.connect(process.env.MONGOOSE_TOKEN, { useNewUrlParser: true, useUnifiedTopology: true }).then((connection) => {
+mongoose.connect(process.env.MONGOOSE_TOKEN, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
   client.logger.info(chalk.bold('Connected to the Mongoose database.'));
 }).catch((err) => {
   client.logger.error(`Unable to connect to the Mongodb database. Error:${err}`);

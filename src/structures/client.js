@@ -32,7 +32,6 @@ class MikeBotClient extends CommandoClient {
   constructor(options) {
     super(options);
     // eslint-disable-next-line global-require
-    this.route = new (require('../routes/dblWebhook'))(this);
     this.guildsData = guildModel;
     this.membersData = memberModel;
     this.usersData = userModel;
@@ -104,44 +103,43 @@ class MikeBotClient extends CommandoClient {
   async findGuild({ id: guildID }, isLean = false) {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
-      if (this.databaseCache.guilds.get(guildID)) {
+      /* if (this.databaseCache.guilds.get(guildID)) {
         resolve(this.databaseCache.guilds.get(guildID));
+      } else {} */
+      let guildData = (isLean ? await this.guildsData.findOne({ id: guildID }).populate('members').lean() : await this.guildsData.findOne({ id: guildID }).populate('members'));
+      if (guildData) {
+        resolve(guildData);
       } else {
-        let guildData = (isLean ? await this.guildsData.findOne({ id: guildID }).populate('members').lean() : await this.guildsData.findOne({ id: guildID }).populate('members'));
-        if (guildData) {
-          resolve(guildData);
-        } else {
-          // eslint-disable-next-line new-cap
-          guildData = new this.guildsData({ id: guildID });
-          await guildData.save();
-          resolve(guildData);
-        }
-        !isLean ? this.databaseCache.guilds.set(guildID, guildData) : '';
+        // eslint-disable-next-line new-cap
+        guildData = new this.guildsData({ id: guildID });
+        await guildData.save();
+        resolve(guildData);
       }
+      !isLean ? this.databaseCache.guilds.set(guildID, guildData) : '';
     });
   }
 
   async findMember({ id: memberID, guildID }, isLean = false) {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
-      if (this.databaseCache.members.get(`${memberID}${guildID}`)) {
+      /*      if (this.databaseCache.members.get(`${memberID}${guildID}`)) {
         resolve(this.databaseCache.members.get(`${memberID}${guildID}`));
+      } else {} */
+      let memberData = (isLean ? await this.membersData.findOne({ id: memberID, guildID }).lean() : await this.membersData.findOne({ id: memberID, guildID }));
+      if (memberData) {
+        resolve(memberData);
       } else {
-        let memberData = (isLean ? await this.membersData.findOne({ id: memberID, guildID }).lean() : await this.membersData.findOne({ id: memberID, guildID }));
-        if (memberData) {
-          resolve(memberData);
-        } else {
-          // eslint-disable-next-line new-cap
-          memberData = new this.membersData({ id: memberID, guildID });
-          await memberData.save();
-          const guild = await this.findGuild({ id: guildID });
-          if (guild) {
-            // eslint-disable-next-line no-underscore-dangle
-            guild.members.push(memberData._id);
-            await guild.save();
-          }
-          resolve((isLean ? memberData.toJSON() : memberData));
+        // eslint-disable-next-line new-cap
+        memberData = new this.membersData({ id: memberID, guildID });
+        await memberData.save();
+        const guild = await this.findGuild({ id: guildID });
+        if (guild) {
+          // eslint-disable-next-line no-underscore-dangle
+          guild.members.push(memberData._id);
+          await guild.save();
         }
+        resolve((isLean ? memberData.toJSON() : memberData));
+
         if (isLean) return;
         this.databaseCache.members.set(`${memberID}${guildID}`, memberData);
       }

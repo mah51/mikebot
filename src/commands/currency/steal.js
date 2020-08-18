@@ -72,8 +72,8 @@ module.exports = class StealCommand extends Command {
               time: Date.now(),
               otherMember: msg.member.id,
             };
-            if (thief.steals.cache.length > 9) { thief.steals.shift(); }
-            if (victim.stolen.cache.length > 9) { thief.stolens.shift(); }
+            if (thief.steals.cache.length > 9) { thief.steals.cache.shift(); }
+            if (victim.stolen.cache.length > 9) { thief.stolens.cache.shift(); }
             if (collected.size < 1) {
               thief.balance += time[risk.toLowerCase()][1];
               victim.balance -= time[risk.toLowerCase()][1];
