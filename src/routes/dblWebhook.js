@@ -24,7 +24,8 @@ class MainRoute {
           let member = null;
           const guilds = await this.client.guilds.cache.array();
           for (let i = 0; i < guilds.length; i += 1) {
-            member = await guilds[i].members.fetch(req.body.user);
+            const members = await guilds[i].members.fetch();
+            member = members.get(req.body.user);
             if (member) break;
           }
 
