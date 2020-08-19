@@ -12,7 +12,7 @@ class MainRoute {
     app.use(express.json({ extended: false }));
 
     app.post('/', async (req, res) => {
-      await webHook(req, res);
+      await webHook(req, res, this.client);
     });
 
     app.get('/stats', async (req, res) => {

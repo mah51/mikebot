@@ -13,6 +13,7 @@ const CommandoClient = require('./structures/client');
 const MongoDBProvider = require('./functions/other/mongo-provider.js');
 
 process.setMaxListeners(0);
+
 // Initialise client
 const client = new CommandoClient({
   commandPrefix: process.env.IN_PRODUCTION === 'production' ? '.' : '!',
