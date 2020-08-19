@@ -10,18 +10,13 @@ module.exports = class ITWSSCommand extends Command {
       group: 'fun',
       memberName: 'itwss',
       fullName: 'Is That What She Said Command',
-      description: 'Determines if supplied phrase is what she said xd.',
+      description: 'The bot judges every message for an alternative meaning and will tell you if that is what she said.',
       details: '',
       examples: [
         'itwss that was hard',
       ],
       args: [
-        {
-          key: 'phrase',
-          label: 'phrase',
-          prompt: 'Enter a phrase to test if it is what she said',
-          type: 'string',
-        },
+
       ],
       guildOnly: false,
     });
@@ -29,8 +24,13 @@ module.exports = class ITWSSCommand extends Command {
 
   async run(msg, args, fromPattern, result) {
     try {
-      await this.client.provider.set(msg.guild.id, 'twss-enabled', true);
-      await msg.reply('twss activated');
+      const active = this.client.provider.get(msg.guild.id, 'twss-enabled');
+      const embed = this.client.embed.create(active ? 'error' : 'general')
+        .setDescription(active ? 'TWSS has been deactivated' : 'TWSS has been activated')
+        .setAuthor(msg.author.username, msg.author.displayAvatarURL());
+
+      await this.client.provider.set(msg.guild.id, 'twss-enabled', !active);
+      await msg.reply(embed);
     } catch (err) {
       console.error(err);
       await this.onError(err, msg);

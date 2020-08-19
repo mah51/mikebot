@@ -8,8 +8,6 @@ const util = require('util');
 const chalk = require('chalk');
 const { Intents } = require('discord.js');
 
-const { MainRoute } = require('./routes/dblWebhook');
-
 const readdir = util.promisify(fs.readdir);
 const CommandoClient = require('./structures/client');
 const MongoDBProvider = require('./functions/other/mongo-provider.js');
@@ -26,23 +24,19 @@ const client = new CommandoClient({
   messageCacheMaxSize: 100,
 });
 
-const webHook = new MainRoute(client);
-webHook.init();
+if (process.env.IN_PRODUCTION === 'production') {
+  if (process.env.DBL_TOKEN) {
+    client.dbl = new DBL(process.env.DBL_TOKEN);
+    client.dbl.on('posted', () => {
+      client.logger.info('Server count posted!');
+    });
+    client.dbl.on('error', (e) => {
+      client.logger.error(`DBL ERROR ${e}`);
+    });
+    client.logger.info('Loaded DBL instance');
+  } else { client.logger.warn('DBL was not loaded: No token provided'); }
+} else { client.logger.warn('DBL was not loaded: Bot not in production'); }
 
-if (process.env.DBL_TOKEN) {
-  client.dbl = new DBL(process.env.DBL_TOKEN);
-  client.dbl.on('posted', () => {
-    client.logger.info('Server count posted!');
-  });
-  client.dbl.on('error', (e) => {
-    client.logger.error(`DBL ERROR ${e}`);
-  });
-  client.logger.info('Loaded DBL instance');
-} else { client.logger.warn('DBL was not loaded: No token provided'); }
-// Login to client
-client.login(process.env.BOT_TOKEN).catch(console.error);
-
-// Setting database provider
 client
   .setProvider(
     MongoClient.connect(process.env.DB_CONNECTION, { useUnifiedTopology: true }).then((mongoClient) => new MongoDBProvider(mongoClient, 'Mike-Bot-Provider-Settings')),
@@ -53,6 +47,12 @@ mongoose.connect(process.env.MONGOOSE_TOKEN, { useNewUrlParser: true, useUnified
 }).catch((err) => {
   client.logger.error(`Unable to connect to the Mongodb database. Error:${err}`);
 });
+
+// Login to client
+client.login(process.env.BOT_TOKEN).catch(console.error);
+
+// Setting database provider
+
 mongoose.connection.on('close', () => {
   mongoose.connection.removeAllListeners();
 });

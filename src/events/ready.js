@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const intervalChecks = require('../functions/IntervalChecks/intervalChecks');
 const setPres = require('../functions/other/setPres');
+const { MainRoute } = require('../functions/other/express');
 
 const descriptions = {
   'owner-only': 'Commands for Big Bois only',
@@ -30,6 +31,7 @@ module.exports = class {
   }
 
   async run() {
+    console.log(chalk.cyanBright(await fs.readFileSync(path.join(__dirname, '../util/boot.txt'), 'utf-8')));
     this.client.registry.groups.forEach((group) => {
       // eslint-disable-next-line no-param-reassign
       group.description = descriptions[group.id];
@@ -37,13 +39,10 @@ module.exports = class {
     this.client.setting.start_time = Date.now();
 
     intervalChecks(this.client);
-    /*    this.client.guilds.cache.sort((a, b) => a.memberCount + b.memberCount).forEach((guild) => {
-      this.client.logger.silly(`${chalk.cyan.bold(guild.memberCount)} members: ${chalk.magenta.bold(guild.name)} - ${chalk.blueBright.bold(guild.id)}`);
-    }); */
-
-    console.log(chalk.cyanBright(await fs.readFileSync(path.join(__dirname, '../util/boot.txt'), 'utf-8')));
     this.client.logger.info(`Logged in as ${chalk.magenta.bold(`${this.client.user.username}#`)}${chalk.magenta.bold(this.client.user.discriminator)}\nWatching over ${chalk.blueBright.bold(this.client.guilds.cache.size)} guilds.`);
     // Setting bot presence
+    const webHook = new MainRoute(this.client);
+    webHook.init();
     this.client.user.setPresence({
       status: 'dnd',
       activity: {
