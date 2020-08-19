@@ -8,6 +8,8 @@ const util = require('util');
 const chalk = require('chalk');
 const { Intents } = require('discord.js');
 
+const { MainRoute } = require('./routes/dblWebhook');
+
 const readdir = util.promisify(fs.readdir);
 const CommandoClient = require('./structures/client');
 const MongoDBProvider = require('./functions/other/mongo-provider.js');
@@ -22,8 +24,10 @@ const client = new CommandoClient({
   unknownCommandResponse: false,
   ws: { intents: Intents.NON_PRIVILEGED },
   messageCacheMaxSize: 100,
-
 });
+
+const webHook = new MainRoute(client);
+webHook.init();
 
 if (process.env.DBL_TOKEN) {
   client.dbl = new DBL(process.env.DBL_TOKEN);
@@ -133,6 +137,7 @@ client.registry.registerGroups([
   ['currency', 'Currency 💸'],
   ['util', 'Utility 💡'],
   ['misc', 'Misc. 🙃'],
+  ['vote', 'Vote ✔'],
 ])
   .registerDefaultTypes()
   .registerCommandsIn(path.join(__dirname, 'commands'));

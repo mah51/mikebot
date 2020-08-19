@@ -5,6 +5,7 @@ module.exports = mongoose.model('User', new mongoose.Schema({
   votes: {
     type: Object,
     default: {
+      value: false,
       cooldown: 0,
       count: 0,
       votes: [],

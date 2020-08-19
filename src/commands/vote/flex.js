@@ -1,3 +1,4 @@
+const ms = require('ms');
 const Command = require('../../structures/commands');
 
 const compliments = [
@@ -16,7 +17,7 @@ module.exports = class FlexCommand extends Command {
       aliases: [
 
       ],
-      group: 'fun',
+      group: 'vote',
       memberName: 'flex',
       fullName: 'Flex',
       description: 'If you have voted for the bot go flex on some nerds.',
@@ -43,18 +44,35 @@ module.exports = class FlexCommand extends Command {
 
   async run(msg, args, fromPattern, result) {
     try {
-      const userData = await this.client.findUser({ id: msg.author.id }, true);
-      if (userData.votes.count === 0) { return this.makeError(msg, 'You haven\'t voted yet! to vote go to [top.gg](https://top.gg/bot/698459684205494353) to vote for MikeBot and use the `.vote` command to get some perks! ❤'); }
-      if (Date.now() - userData.votes.cooldown > 43200000) { return this.makeError(msg, 'It has been longer than 12 hours since you last voted! to regain access to this command go and vote at [top.gg](https://top.gg/bot/698459684205494353)! and do `.vote` :P.'); }
+      const userData = await this.client.findUser({ id: msg.author.id });
+      if (!userData.votes.value) {
+        if (await this.client.dbl.hasVoted(msg.author.id)) {
+          userData.votes.value = true;
+          userData.votes.votes.push({
+            date: Date.now(),
+            site: 'unknown',
+          });
+          userData.markModified('votes');
+          userData.save();
+        } else {
+          return this.makeError(msg, 'You haven\'t voted yet! to vote go to [top.gg](https://top.gg/bot/698459684205494353) to vote for MikeBot and get some perks! ❤');
+        }
+      }
       const embed = this.client.embeds.create('flex')
         .setAuthor(args.member ? `${msg.member.displayName} is absolutely flexing on all you losers` : `${msg.member.displayName} is flexing on ${args.member.displayName}`, msg.author.displayAvatarURL({ size: 256 }))
         .setDescription(`**${compliments[Math.floor(Math.random() * compliments.length)].replace('{{member}}', msg.member)}**`)
         .setTitle('F L E X I N G')
         .setFooter('And yes that is the supreme red on the side = le big flex');
       if (args.member) {
-        embed
-          .setDescription(`${msg.member} wanted you to know how inferior you are, also have a yo momma joke on the house.`);
-        args.user = args.member;
+        const userData_ = await this.client.findUser({ id: args.member.id });
+        if (userData_ && userData_.votes.votes[userData_.votes.votes.length - 1].date > userData.votes.votes[userData.votes.votes.length - 1].date) {
+          embed.setDescription(`${msg.member} well well well, how the turn tables. ${args.member} has voted more recently than you, now you must take the yo-momma joke.`);
+          args.user = msg.member;
+        } else {
+          embed
+            .setDescription(`${msg.member} wanted you to know how inferior you are, also have a yo momma joke on the house.`);
+          args.user = args.member;
+        }
       }
       await msg.say(embed);
       if (args.member) {

@@ -21,6 +21,7 @@ const descriptions = {
   currency: 'Using commands and sending messages → profit!',
   util: 'Utility commands (bit boring)',
   misc: 'A bunch of random commands.',
+  vote: 'Commands for legends that have voted for the bot on [Top.gg](https://top.gg/bot/698459684205494353)',
 };
 
 module.exports = class {

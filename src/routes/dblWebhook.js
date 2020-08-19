@@ -8,20 +8,47 @@ class MainRoute {
   init() {
     const app = express();
     app.use(express.json({ extended: false }));
-    async function processSomething(callback) {
-      console.log('Webhook Successful!');
-      setTimeout((callback), 2000);
-    }
-    app.post('/api/', async (req, res) => {
-      await processSomething(() => {
-        console.log('update');
-      });
 
-      res.status(200).send('OK');
+    app.post('/', async (req, res) => {
+      try {
+        if (req.headers && req.headers.authorization && req.headers.authorization.includes(process.env.API_PASSWORD)) {
+          this.client.logger.info(`Successful web hook from ${req.body.user}`);
+          const user = await this.client.findUser({ id: req.body.user });
+          user.votes.value = true;
+          user.votes.count += 1;
+          user.votes.votes.push({
+            date: Date.now(),
+            site: 'top.gg',
+          });
+          user.markModified('votes');
+          let member = null;
+          const guilds = await this.client.guilds.cache.array();
+          for (let i = 0; i < guilds.length; i += 1) {
+            member = await guilds[i].members.fetch(req.body.user);
+            if (member) break;
+          }
+
+          const embed = this.client.embeds.create('success')
+            .setTitle('Thank you for voting for MikeBot 😃')
+            .setDescription('You will now have access to some cool commands do .help <vote> to get more info.')
+            .setAuthor(member.user.username, member.user.displayAvatarURL());
+          await member.send(embed).catch((err) => {
+            if (err.code !== 50007) {
+              console.error(err);
+            } else {
+              this.client.logger.error('Could not send webhook confirmation to user.');
+            }
+          });
+          await user.save();
+        } else {
+          this.client.logger.error('Unauthorised request to DBL web hook');
+          res.status(403).json({ error: 'Unauthorised request' });
+        }
+      } catch (err) {
+        this.client.logger.error(`There was an error in webhook: ${err}`);
+      }
     });
-    app.listen(8000, () => console.log(`Listening on port ${8000}`));
+    app.listen(process.env.PORT, () => console.log(`Listening on port ${process.env.PORT}`));
   }
 }
-const route = new MainRoute();
-route.init();
-module.exports = MainRoute;
+module.exports.MainRoute = MainRoute;
