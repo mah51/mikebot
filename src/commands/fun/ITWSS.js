@@ -25,7 +25,7 @@ module.exports = class ITWSSCommand extends Command {
   async run(msg, args, fromPattern, result) {
     try {
       const active = this.client.provider.get(msg.guild.id, 'twss-enabled');
-      const embed = this.client.embed.create(active ? 'error' : 'general')
+      const embed = this.client.embeds.create(active ? 'error' : 'general')
         .setDescription(active ? 'TWSS has been deactivated' : 'TWSS has been activated')
         .setAuthor(msg.author.username, msg.author.displayAvatarURL());
 
