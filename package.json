@@ -15,6 +15,7 @@
     "chalk": "^4.0.0",
     "commando-provider-mongo": "^1.1.1",
     "common-tags": "^1.8.0",
+    "cors": "^2.8.5",
     "dateformat": "^3.0.3",
     "dbl-api": "^1.2.1",
     "dblapi.js": "^2.4.0",

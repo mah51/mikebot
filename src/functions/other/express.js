@@ -1,5 +1,6 @@
 const express = require('express');
 const chalk = require('chalk');
+const cors = require('cors');
 const { webHook, statFunc } = require('./routes');
 
 class MainRoute {
@@ -9,7 +10,7 @@ class MainRoute {
 
   init() {
     const app = express();
-    app.use(express.json({ extended: false }));
+    app.use(cors());
 
     app.post('/', async (req, res) => {
       await webHook(req, res, this.client);
