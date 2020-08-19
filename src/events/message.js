@@ -1,3 +1,7 @@
+const twss = require('twss');
+
+twss.threshold = 0.7;
+
 module.exports = class {
   constructor(client) {
     this.client = client;
@@ -14,6 +18,12 @@ module.exports = class {
       }
       if (!msg.guild) {
         return;
+      }
+      if (msg.client.provider.get(msg.guild.id, 'twss-enabled')) {
+        const bool = twss.is(msg.content);
+        if (bool) {
+          await msg.channel.send('That\'s what she said.');
+        }
       }
       if (msg.client.provider.get(msg.guild.id, 'grp-currency') === false) {
         return;

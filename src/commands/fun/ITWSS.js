@@ -1,4 +1,3 @@
-const twss = require('twss');
 const Command = require('../../structures/commands');
 
 module.exports = class ITWSSCommand extends Command {
@@ -30,15 +29,8 @@ module.exports = class ITWSSCommand extends Command {
 
   async run(msg, args, fromPattern, result) {
     try {
-      const string = args.phrase;
-      const bool = twss.is(string);
-      const prob = twss.probability(string);
-      const embed = this.client.embeds.create(bool ? 'general' : 'error')
-        .setAuthor(msg.member ? msg.member.displayName : msg.author.username, msg.author.displayAvatarURL({ size: 256 }))
-        .setTitle(`That's ${bool ? '**IS**' : '**IS NOT**'} what she said.`)
-        .setDescription(`I have calculated that is ${bool ? '' : '**NOT**'} what she said.`)
-        .addField('Certainty', `${Math.round(prob * 100) / 100}%`, true);
-      return msg.say(embed);
+      await this.client.provider.set(msg.guild.id, 'twss-enabled', true);
+      await msg.reply('twss activated');
     } catch (err) {
       console.error(err);
       await this.onError(err, msg);
