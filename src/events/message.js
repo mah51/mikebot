@@ -1,6 +1,6 @@
 const twss = require('twss');
 
-twss.threshold = 0.9;
+twss.threshold = 0.95;
 
 module.exports = class {
   constructor(client) {
