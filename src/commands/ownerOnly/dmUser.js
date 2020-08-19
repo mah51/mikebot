@@ -30,14 +30,7 @@ module.exports = class dmUser extends Command {
   }
 
   async run(msg, { userid, text }, fromPattern, something) {
-    const membersarray = [];
-    await msg.client.guilds.cache.map((guild) => guild.members.fetch().then((members) => {
-      const test = members.find((member) => member.id === userid);
-      if (test) {
-        membersarray.push(test);
-      }
-    }));
-    const info = membersarray[0];
+    const info = await msg.client.users.fetch(userid);
     if (!info) { return msg.reply('No user with that id / name found').catch(console.error); }
     if (!await checkMessage(text, msg, '', '', info.user.username)) { return msg.reply('Message was not approved in the allotted time, please try again.').catch(console.error); }
     const reply = new MessageEmbed()

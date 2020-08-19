@@ -17,7 +17,7 @@ const MongoDBProvider = require('./functions/other/mongo-provider.js');
 process.setMaxListeners(0);
 // Initialise client
 const client = new CommandoClient({
-  commandPrefix: '.',
+  commandPrefix: process.env.IN_PRODUCTION === 'production' ? '.' : '!',
   owner: '143699512790089729',
   invite: 'https://discord.gg/UmXUUaA',
   disableEveryone: true,

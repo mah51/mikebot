@@ -19,13 +19,20 @@ class MainRoute {
           user.votes.votes.push({
             date: Date.now(),
             site: 'top.gg',
+            claimed: false,
           });
           user.markModified('votes');
           const foundUser = await this.client.users.fetch(req.body.user);
           if (foundUser) {
-            const embed = this.client.embeds.create('success')
+            const embed = this.client.embeds.create('general')
               .setTitle('Thank you for voting for MikeBot 😃')
               .setDescription('You will now have access to some cool commands do .help <vote> to get more info.')
+              .addField('Balance', 'You can claim 300 points of balance in any server you want with the `.get-balance` command.', true)
+              .addField('\u200b', '\u200b', true)
+              .addField('Mutual server\'s', `\`${this.client.guilds.cache.array().filter((test) => test.members.fetch(foundUser.id)).join('`, `')}\``)
+              .addField('Vote count', `You have voted ${user.votes.count} times`)
+              .addField('\u200b', '\u200b', true)
+              .addField('Flex command', 'I gave you access to the `.flex` command for 12 hours, now go flex on some peasants.', true)
               .setAuthor(foundUser.username, foundUser.displayAvatarURL());
             await foundUser.send(embed).catch((err) => {
               if (err.code !== 50007) {

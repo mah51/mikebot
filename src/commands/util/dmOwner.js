@@ -36,7 +36,7 @@ module.exports = class dmOwner extends Command {
       .setFooter(this.client.setting.footer)
       .setColor(this.client.setting.colour)
       .setTimestamp()
-      .setTitle(`You have a new message from ${msg.author.username}#${msg.author.discriminator}`)
+      .setTitle(`You have a new message from ${msg.author.username}#${msg.author.discriminator} - ${msg.author.id}`)
       .addField('Message', text);
     const replyEmbed = new MessageEmbed()
       .setFooter(this.client.setting.footer)
