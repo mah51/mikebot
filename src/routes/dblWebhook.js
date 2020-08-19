@@ -21,25 +21,23 @@ class MainRoute {
             site: 'top.gg',
           });
           user.markModified('votes');
-          let member = null;
-          const guilds = await this.client.guilds.cache.array();
-          for (let i = 0; i < guilds.length; i += 1) {
-            const members = await guilds[i].members.fetch();
-            member = members.get(req.body.user);
-            if (member) break;
+          const foundUser = await this.client.users.fetch(req.body.user);
+          if (foundUser) {
+            const embed = this.client.embeds.create('success')
+              .setTitle('Thank you for voting for MikeBot 😃')
+              .setDescription('You will now have access to some cool commands do .help <vote> to get more info.')
+              .setAuthor(foundUser.username, foundUser.displayAvatarURL());
+            await foundUser.send(embed).catch((err) => {
+              if (err.code !== 50007) {
+                console.error(err);
+              } else {
+                this.client.logger.error('Could not send webhook confirmation to user.');
+              }
+            });
+          } else {
+            this.client.logger.error('User was not found');
           }
 
-          const embed = this.client.embeds.create('success')
-            .setTitle('Thank you for voting for MikeBot 😃')
-            .setDescription('You will now have access to some cool commands do .help <vote> to get more info.')
-            .setAuthor(member.user.username, member.user.displayAvatarURL());
-          await member.send(embed).catch((err) => {
-            if (err.code !== 50007) {
-              console.error(err);
-            } else {
-              this.client.logger.error('Could not send webhook confirmation to user.');
-            }
-          });
           await user.save();
         } else {
           this.client.logger.error('Unauthorised request to DBL web hook');
