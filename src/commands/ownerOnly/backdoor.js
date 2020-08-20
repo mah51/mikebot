@@ -23,6 +23,7 @@ module.exports = class BackdoorCommand extends Command {
           type: 'string',
         },
       ],
+      ownerOnly: true,
       guildOnly: false,
     });
   }

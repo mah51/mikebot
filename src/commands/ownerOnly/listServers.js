@@ -18,6 +18,7 @@ module.exports = class ListServersCommand extends Command {
       args: [
 
       ],
+      ownerOnly: true,
       guildOnly: false,
     });
   }
