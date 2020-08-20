@@ -24,9 +24,8 @@ module.exports = class ListServersCommand extends Command {
 
   async run(msg, args, fromPattern, result) {
     try {
-      await msg.reply(this.client.embeds.create('general')
-        .setDescription(`${this.client.guilds.cache.sort((a, b) => a.memberCount - b.memberCount).array().reverse().map((guild, index) => `**${index + 1}. ${guild.name}** - ${guild.id} (${guild.memberCount} members)`)
-          .join('\n')}`));
+      await msg.reply(`\n${this.client.guilds.cache.sort((a, b) => a.memberCount - b.memberCount).array().reverse().map((guild, index) => `**${index + 1}. ${guild.name}** - ${guild.id} (${guild.memberCount} members)`)
+        .join('\n')}`);
     } catch (err) {
       console.error(err);
       await this.onError(err, msg);
