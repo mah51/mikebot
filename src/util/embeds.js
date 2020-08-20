@@ -9,6 +9,18 @@ class Embeds {
       warn: '#FFE423',
       success: '#4BF08C',
       flex: '#ed1c24',
+      default: '#E81123',
+      red: '#EE151F',
+      blue: '#00B0F4',
+      black: '#000000',
+      green: '#2ECC71',
+      cyan: '#00ffff',
+      yellow: '#ffd700',
+      magenta: '#c99fff',
+      lime: '#9fffa1',
+      white: '#eeeeee',
+      orange: '#FFA500',
+      pink: '#FF1493',
     };
   }
 

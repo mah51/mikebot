@@ -1,5 +1,5 @@
 ![Linting](https://github.com/mah51/mikebot/workflows/Linting/badge.svg?branch=master) 
-
+[![forthebadge](https://forthebadge.com/images/badges/you-didnt-ask-for-this.svg)](https://forthebadge.com)
 [![Discord Bots](https://top.gg/api/widget/698459684205494353.svg)](https://top.gg/bot/698459684205494353)
 # Welcome to the MikeBot Repository!
 

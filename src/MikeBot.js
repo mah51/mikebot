@@ -69,7 +69,7 @@ const init = async () => {
     delete require.cache[require.resolve(`${fileRoot}${file}`)];
     return eventName;
   });
-  client.logger.info(`Loaded ${chalk.bold(loadedFiles.join(', '))} events.`);
+  client.logger.info(`Loaded ${chalk.bold(loadedFiles.join(chalk.magentaBright(', ')))} events.`);
 };
 init().catch(console.error);
 
