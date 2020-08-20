@@ -10,6 +10,7 @@ class MainRoute {
 
   init() {
     const app = express();
+    app.use(express.json({ extended: false }));
     app.use(cors());
 
     app.post('/', async (req, res) => {
