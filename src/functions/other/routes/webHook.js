@@ -16,10 +16,10 @@ module.exports = async (req, res, client) => {
         const embed = client.embeds.create('general')
           .setTitle('Thank you for voting for MikeBot 😃')
           .setDescription('You will now have access to some cool commands do .help <vote> to get more info.')
-          .addField('Balance', 'You can claim 300 points of balance in any server you want with the `.get-balance` command.', true)
+          .addField('Balance', 'You can claim 300 points of balance in any server on the right with the `.get-balance` command.', true)
           .addField('\u200b', '\u200b', true)
-          .addField('Mutual server\'s', `\`${client.guilds.cache.array().filter((test) => test.members.fetch(foundUser.id)).join('`, `')}\``)
-          .addField('Vote count', `You have voted ${user.votes.count} times`)
+          .addField('Mutual server\'s', `\`${client.guilds.cache.array().filter((test) => test.members.fetch(foundUser.id)).join('`, `')}\``, true)
+          .addField('Vote count', `You have voted ${user.votes.count} times`, true)
           .addField('\u200b', '\u200b', true)
           .addField('Flex command', 'I gave you access to the `.flex` command for 12 hours, now go flex on some peasants.', true)
           .setAuthor(foundUser.username, foundUser.displayAvatarURL());
