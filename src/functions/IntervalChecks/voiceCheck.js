@@ -1,6 +1,6 @@
 module.exports = (client) => {
   client.guilds.cache.forEach((guild) => {
-    if (guild.me && !guild.me.voice) { return; }
+    if (!guild.me || !guild.me.voice) { return; }
     const { channel } = guild.me.voice;
     if (!channel) return;
     if (channel.members.size > 1) return;
