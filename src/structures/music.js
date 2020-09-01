@@ -368,7 +368,7 @@ module.exports = class MusicClient {
     }
     for (let i = 0; i < list.length; i += pageLimit) {
       let text = '';
-      const pageEmbed = this.pageEmbed(title, isField, extraTitle, extraText);
+      const pageEmbed = await this.pageEmbed(title, isField, extraTitle, extraText);
       list.slice(i, i + pageLimit).forEach((entry, index) => {
         text += `${i + index + 1}. [${entry.title}](${entry.url})\n*Queued by: <@${entry.requester}>*\n`;
       });
