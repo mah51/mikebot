@@ -21,11 +21,10 @@ async function setPres(client, dbl) {
   const cmdCount = client.registry.commands
     .filter((command) => !command.ownerOnly && !command.hidden).size;
   if (process.env.IN_PRODUCTION === 'production') {
-    client.logger.info(`Sending info to database:${cmdCount}, ${guildCount}, ${memberCount}\n${guildArray}`);
+    client.logger.info(`Sending info to database:${cmdCount}, ${guildCount}, ${memberCount}`);
     db.collection('test').doc('testid').set({
       commands: cmdCount,
       guilds: guildCount,
-      guildList: guildArray,
       members: memberCount,
     }).then(() => {
       client.logger.info(`Sent info to database:${cmdCount}, ${guildCount}, ${memberCount}`);
