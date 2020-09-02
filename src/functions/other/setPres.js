@@ -9,7 +9,9 @@ const db = admin.firestore();
 async function setPres(client, dbl) {
   let memberCount = 0;
   let guildCount = 0;
-  const guildArray = client.guilds.cache.map((guild) => {
+  let guilds = client.guilds.cache;
+  if (!guilds) { guilds = client.guilds.fetch(); }
+  const guildArray = guilds.map((guild) => {
     guildCount += 1;
     if (guild.memberCount < 90000) {
       memberCount += guild.memberCount;
