@@ -2,6 +2,7 @@ module.exports = async (req, res, client) => {
   try {
     if (req.headers && req.headers.authorization && req.headers.authorization.includes(process.env.API_PASSWORD)) {
       client.logger.info(`Successful web hook from ${req.body.user}`);
+
       const user = await client.findUser({ id: req.body.user });
       user.votes.value = true;
       user.votes.count += 1;
@@ -16,10 +17,9 @@ module.exports = async (req, res, client) => {
         const embed = client.embeds.create('general')
           .setTitle('Thank you for voting for MikeBot 😃')
           .setDescription('You will now have access to some cool commands do .help <vote> to get more info.')
-          .addField('Balance', 'You can claim 300 points of balance in any server on the right with the `.get-balance` command.', true)
+          .addField('Balance', 'You can claim 300 points of balance in any server on the right with the `.bonus` command.', true)
           .addField('\u200b', '\u200b', true)
           .addField('Vote count', `You have voted ${user.votes.count} times`, true)
-          .addField('\u200b', '\u200b', true)
           .addField('Flex command', 'I gave you access to the `.flex` command for 12 hours, now go flex on some peasants.', true)
           .setAuthor(foundUser.username, foundUser.displayAvatarURL());
         await foundUser.send(embed).catch((err) => {
@@ -32,7 +32,9 @@ module.exports = async (req, res, client) => {
       } else {
         client.logger.error('User was not found');
       }
-
+      if (req.body.type === 'test') {
+        return console.log('Received test upvote');
+      }
       await user.save();
     } else {
       client.logger.error('Unauthorised request to DBL web hook');
